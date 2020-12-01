@@ -44,9 +44,9 @@ function errorHandler(err, res) {
             })
             break;
 
-        case error.NO_GAME_INFO:
+        case error.NO_INFO:
             res.status(418).json({
-                cause: 'Game Not found / No game Info'
+                cause: 'Game/Group Not found / No Game/Group Info'
             })
             break;
     }
@@ -179,7 +179,13 @@ function webapi(app, service) {
             const groupId = parseInt(req.params.groupId)
             const game = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ')
 
-            service.removeGame(groupId, game, (err, db) => res.json(db))
+            service.removeGame(groupId, game, (err, db) => {
+                if (err) {
+                    errorHandler(err, res)
+                } else {
+                    res.json(db)
+                }
+            })
         },
 
         getRatingWithMin: (req, res) => {

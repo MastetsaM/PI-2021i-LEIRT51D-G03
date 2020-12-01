@@ -14,7 +14,7 @@ function service(covida_db, igdb) {
             if (typeof game === "string")
                 igdb.getGameByName(game, (err, games) => res(err, games))
             else
-                resFunc(error.INVALID_ARGUMENTS)
+                res(error.INVALID_ARGUMENTS)
         },
 
         newGroup: (group, resFunc) => {
@@ -25,14 +25,14 @@ function service(covida_db, igdb) {
         },
 
         editGroup: (groupId, group, resFunc) => {
-            if (typeof groupId === "number")
+            if (typeof groupId == "number" && group)
                 covida_db.editGroup(groupId, group, (err, newGroup) => resFunc(err, newGroup))
             else
                 resFunc(error.INVALID_ARGUMENTS)
         },
 
         getAllGroups: (resFunc) => {
-            covida_db.listOfGroups((groups) => resFunc(groups))
+            covida_db.listOfGroups((groups) => resFunc(groups || []))
         },
 
         getSpecGroup: (groupId, resFunc) => {
