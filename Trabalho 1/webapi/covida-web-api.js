@@ -176,19 +176,24 @@ function webapi(app, service) {
             })
         },
 
-        getRatingWithMin: (req, res) => {
+        getByRatingWithMin: (req, res) => {
             const groupId = parseInt(req.params.groupId)
             const minRating = parseInt(req.params.minRating)
             getGamesByRating(groupId, minRating, null, service, res)
         },
 
-        getRatingWithmax: (req, res) => {
+        getByRating: (req, res) => {
+            const groupId = parseInt(req.params.groupId)
+            getGamesByRating(groupId, null, null, service, res)
+        },
+
+        getByRatingWithmax: (req, res) => {
             const groupId = parseInt(req.params.groupId)
             const maxRating = parseInt(req.params.maxRating)
             getGamesByRating(groupId, null, maxRating, service, res)
         },
 
-        getRatingWithBoth: (req, res) => {
+        getByRatingWithBoth: (req, res) => {
             const groupId = parseInt(req.params.groupId)
             const minRating = parseInt(req.params.minRating)
             const maxRating = parseInt(req.params.maxRating)
@@ -200,16 +205,18 @@ function webapi(app, service) {
     app.get('/game/:game', theWebApi.getGameByName)
 
     app.post('/group/newGroup', theWebApi.newGroup)
-    app.post('/group/edit/:groupId', theWebApi.editGroup)
+    app.put('/group/edit/:groupId', theWebApi.editGroup)
 
-    app.post('/group/list', theWebApi.getGroupList)
-    app.post('/group/info/:groupId', theWebApi.getSpecGroup)
+    app.get('/group/list', theWebApi.getGroupList)
+    app.get('/group/info/:groupId', theWebApi.getSpecGroup)
 
-    app.post('/group/addGame/:groupId/game/:game', theWebApi.addGame)
-    app.post('/group/removeGame/:groupId/game/:game', theWebApi.removeGame)
-    app.post('/group/removeGame/:groupId/min/:minRating', theWebApi.getRatingWithMin)
-    app.post('/group/removeGame/:groupId/max/:maxRating', theWebApi.getRatingWithmax)
-    app.post('/group/removeGame/:groupId/min/:minRating/max/:maxRating', theWebApi.getRatingWithBoth)
+    app.put('/group/addGame/:groupId/game/:game', theWebApi.addGame)
+    app.delete('/group/removeGame/:groupId/game/:game', theWebApi.removeGame)
+
+    app.get('/group/getGameByRating/:groupId', theWebApi.getByRating)
+    app.get('/group/getGameByRating/:groupId/min/:minRating', theWebApi.getByRatingWithMin)
+    app.get('/group/getGameByRating/:groupId/max/:maxRating', theWebApi.getByRatingWithmax)
+    app.get('/group/getGameByRating/:groupId/min/:minRating/max/:maxRating', theWebApi.getByRatingWithBoth)
 
 
     return theWebApi
