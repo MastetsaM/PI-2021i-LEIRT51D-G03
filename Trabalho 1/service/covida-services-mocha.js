@@ -27,7 +27,7 @@ function service() {
         editGroup: (groupId, group, resFunc) => {
             resFunc(null, {
                 id: groupId,
-                toEditGroup: group
+                group: group
             })
         },
 
@@ -56,20 +56,11 @@ function service() {
         },
 
         getGamesByRating: (group, minRating, maxRating, resFunc) => {
-
-            if (minRating > maxRating) {
-                const aux = maxRating
-                maxRating = minRating
-                minRating = aux
-            }
-
-            let min = minRating || 0
+            const min = minRating || 0
             if (min < 0) min = 0
-            if (min > 100) min = 100
 
-            let max = maxRating || 100
+            const max = maxRating || 100
             if (max > 100) max = 100
-            if (max < 0) max = 0
 
             const result = {
                 max: max,

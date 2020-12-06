@@ -12,9 +12,7 @@ function service(covida_db, igdb) {
 
         getGameByName: (game, resFunc) => {
             if (typeof game === "string")
-                igdb.getGameByName(game, (err, games) => resFunc(err, games || {
-                    info: "No game found"
-                }))
+                igdb.getGameByName(game, (err, games) => resFunc(err, games))
             else
                 res(error.INVALID_ARGUMENTS)
         },
@@ -59,28 +57,16 @@ function service(covida_db, igdb) {
         },
 
         getGamesByRating: (group, minRating, maxRating, resFunc) => {
+            if (group && typeof minRating === "number" && typeof minRating === "number") {
+                const min = minRating || 0
+                if (min < 0) min = 0
 
-            let min = minRating || 0
-            if (min < 0) min = 0
-            if (min > 100) min = 100
+                const max = maxRating || 100
+                if (max > 100) max = 100
 
-            let max = maxRating || 100
-            if (max > 100) max = 100
-            if (max < 0) max = 0
+                const gamesRespectRules = group.games.filter(game => game.total_rating <= max && game.total_rating >= min).sort((a, b) => b.total_rating - a.total_rating);
 
-            if (group && typeof min === "number" && typeof max === "number") {
-
-                if (min > max) {
-                    const aux = max
-                    max = min
-                    min = aux
-                }
-
-                if (group.games) {
-                    const gamesRespectRules = group.games.filter(game => game.total_rating <= max && game.total_rating >= min).sort((a, b) => b.total_rating - a.total_rating);
-                    resFunc(null, gamesRespectRules)
-                } else
-                    resFunc(null, [])
+                resFunc(null, gamesRespectRules)
             } else {
                 resFunc(error.INVALID_ARGUMENTS)
             }
