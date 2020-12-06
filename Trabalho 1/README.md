@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Wiki - Trabalho 1
 
 Neste trabalho foi pedido para criarmos um servidor que tenha como funcionalidade pesquisar por determinados jogos e armazena-los num conjunto de grupos. A pesquisa dos jogos é realizada através da [web API](https://api-docs.igdb.com/#examples), disponibilizada pelo site [IGDB](https://igdb.com/). O tratamento dos grupos tambem é realizado, sendo que o utilizador possui a capacidade de criar, editar ou visualizar os grupos.
@@ -74,3 +75,4 @@ Para validar as funcionalidades da **web-api** utilizou-se o postman em conjunç
 De modo a ter resultatos esperados nos testes presentes no postman é necessario o uso do modulo **covida-server-mocha**
 
 Para a validação dos restantes modulos utilizou-se testes **mocha**, isto é, os testes unitarios presentes na pasta test 
+
