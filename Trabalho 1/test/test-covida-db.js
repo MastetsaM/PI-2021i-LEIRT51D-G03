@@ -1,7 +1,7 @@
 'use strict'
 
 const expect = require('chai').expect
-const dbCreator = require('../covida-db.js')
+const dbCreator = require('../db/covida-db.js')
 
 
 

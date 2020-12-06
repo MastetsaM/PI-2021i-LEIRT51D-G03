@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect
 
-const igdb_mocha = require('../igdb-data-mocha.js')
+const igdb_mocha = require('../igdb_data/igdb-data-mocha.js')
 
 
 describe('igdb-data', function () {

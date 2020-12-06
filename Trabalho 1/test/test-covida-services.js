@@ -1,7 +1,7 @@
 'use strict'
 
 const expect = require('chai').expect
-const serviceCreator = require('../covida-services.js')
+const serviceCreator = require('../service/covida-services.js')
 
 describe('Service', function () {
     describe('igdb', function () {

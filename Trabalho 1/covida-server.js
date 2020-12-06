@@ -12,7 +12,7 @@ const dbCreator = require('./db/covida-db.js')
 const webapiCreator = require('./webapi/covida-web-api.js')
 
 
-let igdb = require('./igdb-data/igdb-data.js')
+let igdb = require('./igdb_data/igdb-data.js')
 const db = dbCreator()
 
 const service = serviceCreator(db, igdb)
