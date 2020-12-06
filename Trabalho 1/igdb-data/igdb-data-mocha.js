@@ -280,8 +280,8 @@ module.exports = {
         resFunc(null, popularGames)
     },
 
-    getGamesByName: (myName, resFunc) => {
+    getGameByName: (myName, resFunc) => {
         const myGames = popularGames.filter(game => game.name === myName);
-        resFunc(null, myGames)
+        resFunc(null, myGames[0])
     }
 }

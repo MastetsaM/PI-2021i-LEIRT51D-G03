@@ -1,28 +1,8 @@
 'use strict'
 
-const error = require('./covida-errors.js')
+const error = require('../covida-errors.js')
 
-function getGamesByRating(groupId, minRating, maxRating, service, res) {
-    service.getSpecGroup(groupId, (err, group) => {
-        if (err) {
-            const error = {
-                'status': err.status,
-                'message': err.message
-            }
-            res.json(error)
-        } else {
-            const min = minRating || 0
-            if (min < 0) min = 0
 
-            const max = maxRating || 100
-            if (max > 100) max = 100
-
-            const gamesRespectRules = group.games.filter(game => game.total_rating <= max && game.total_rating >= min).sort((a, b) => b.total_rating - a.total_rating);
-
-            res.json(gamesRespectRules)
-        }
-    })
-}
 
 function errorHandler(err, res) {
     switch (err) {
@@ -33,23 +13,39 @@ function errorHandler(err, res) {
             break;
 
         case error.INVALID_ARGUMENTS:
-            res.status(418).json({
+            res.status(500).json({
                 cause: 'Invalig argument.'
             })
             break;
 
         case error.INVALID_GROUP:
-            res.status(418).json({
+            res.status(500).json({
                 cause: 'Invalid Group id.'
             })
             break;
 
         case error.NO_INFO:
-            res.status(418).json({
+            res.status(500).json({
                 cause: 'Game/Group Not found / No Game/Group Info'
             })
             break;
     }
+}
+
+function getGamesByRating(groupId, minRating, maxRating, service, res) {
+    service.getSpecGroup(groupId, (err, group) => {
+        if (err) {
+            errorHandler(err, res)
+        } else {
+            service.getGamesByRating(group, minRating, maxRating, (err, gamesRespectRules) => {
+                if (err) {
+                    errorHandler(err, res)
+                } else {
+                    res.json(gamesRespectRules)
+                }
+            })
+        }
+    })
 }
 
 function webapi(app, service) {
@@ -59,11 +55,7 @@ function webapi(app, service) {
         getPopularGames: (req, res) => {
             service.getPopularGames((err, games) => {
                 if (err) {
-                    const error = {
-                        'status': err.status,
-                        'message': err.message
-                    }
-                    res.json(error)
+                    errorHandler(err, res)
                 } else {
                     res.json(games)
                 }
@@ -72,15 +64,11 @@ function webapi(app, service) {
 
         getGameByName: (req, res) => {
 
-            const myName = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ')
+            const gameName = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ')
 
-            service.getGameByName(myName, (err, games) => {
+            service.getGameByName(gameName, (err, games) => {
                 if (err) {
-                    const error = {
-                        'status': err.status,
-                        'message': err.message
-                    }
-                    res.json(error)
+                    errorHandler(err, res)
                 } else {
 
                     res.json(games)
@@ -131,6 +119,7 @@ function webapi(app, service) {
                             res.json(editedGroup)
                         }
                     })
+                    //return
                 } catch (ex) {
                     res.status(400).json({
                         cause: 'Argument required.'
@@ -161,10 +150,9 @@ function webapi(app, service) {
 
             service.getGameByName(game, (err, games) => {
                 if (err) {
-                    msg = "No such Game"
-                    errorHandler(err, msg, res)
+                    errorHandler(err, res)
                 } else {
-                    service.addGame(groupId, games[0], (err, games) => {
+                    service.addGame(groupId, games, (err, games) => {
                         if (err) {
                             errorHandler(err, res)
                         } else {

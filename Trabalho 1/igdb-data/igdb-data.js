@@ -1,7 +1,7 @@
 'use strict'
 
 const urllib = require('urllib')
-const error = require('./covida-errors.js')
+const error = require('../covida-errors.js')
 
 let options = {
     type: 'post',
@@ -19,7 +19,7 @@ module.exports = {
     getPopularGames: function (done) {
 
         options.content =
-            `fields name , rating, total_rating;
+            `fields id, name , rating, total_rating;
         sort total_rating desc;
         where total_rating != null;
         limit 50;`
@@ -32,21 +32,19 @@ module.exports = {
                 done(null, resut)
             }
         })
-
     },
 
     getGameByName: function (name, done) {
 
-        options.content = `fields name, total_rating; sort total_rating desc; where name = "${name}" & total_rating!=null; `
+        options.content = `fields id, name, total_rating; sort total_rating desc; where name = "${name}" & total_rating!=null; `
 
         urllib.request(URL, options, (err, data) => {
             if (err) {
                 done(error.EXTERNAL_SERVICE_FAILURE)
             } else {
                 const resut = JSON.parse(data)
-                done(null, resut)
+                done(null, resut[0])
             }
         })
-
     }
 }

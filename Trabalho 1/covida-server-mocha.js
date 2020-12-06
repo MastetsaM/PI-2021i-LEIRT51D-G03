@@ -7,15 +7,10 @@ const port = process.argv[2] || default_port
 const express = require('express')
 const app = express()
 
-const serviceCreator = require('./service/covida-services.js')
-const dbCreator = require('./db/covida-db.js')
+const serviceCreator = require('./service/covida-services-mocha.js')
 const webapiCreator = require('./webapi/covida-web-api.js')
 
-
-let igdb = require('./igdb-data/igdb-data.js')
-const db = dbCreator()
-
-const service = serviceCreator(db, igdb)
+const service = serviceCreator()
 
 const webapi = webapiCreator(app, service)
 
