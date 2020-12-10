@@ -1,0 +1,746 @@
+{
+	"info": {
+		"_postman_id": "e2337ddb-7184-475a-ba13-a4040c6691be",
+		"name": "Trabalho de PI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getPopular",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a30c9fd5-ed26-4c24-a1b4-0e6ee8bbf802",
+						"exec": [
+							"var schema = [\r",
+							"    {\r",
+							"        \"name\": \"game1\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"name\": \"game2\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"name\": \"game3\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/Game/Popular",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"Game",
+						"Popular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getGameByName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a6b39c6-85d5-492c-9119-abaec0c6aee6",
+						"exec": [
+							"var schema = {\r",
+							"    \"name\": \"Project +\"\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Client-ID",
+						"value": "giigmv7xp163yqkp05d0nesqjhilmz",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer ztgm03pner1gmjv0kzn07utzmfkpgy",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/Game/:game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"Game",
+						":game"
+					],
+					"variable": [
+						{
+							"key": "game",
+							"value": "Project%20+"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addGroup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8fa987dc-3ed4-4a79-be44-83cac2ce62bb",
+						"exec": [
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"faforitos\");\r",
+							"    pm.expect(jsonData.desc).to.eql(\"esta é a versão errada\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"faforitos\",\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/newGroup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"newGroup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editGroup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ef12024-2b9c-43dd-8cd9-49253073abc5",
+						"exec": [
+							"var schema = {\r",
+							"    \"id\": 0,\r",
+							"    \"toEditGroup\": {\r",
+							"        \"name\": \"favoritos\",\r",
+							"        \"desc\": \"versao editada\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"favoritos\",\r\n    \"desc\": \"versao editada\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/edit/:groupId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"edit",
+						":groupId"
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listOfGroups",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d80eb6b5-e56e-4f90-8793-5a8a6b14e04c",
+						"exec": [
+							"var schema = [\r",
+							"    {},\r",
+							"    {},\r",
+							"    {}\r",
+							"];\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Specific Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "436f0ee2-74ab-45ed-80b5-9fd3dbd005ae",
+						"exec": [
+							"var schema = {\r",
+							"    \"groupId\": 0\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/info/:groupId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"info",
+						":groupId"
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addGame",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e651ed9c-28aa-400e-8ee7-e0ad90aa5f2b",
+						"exec": [
+							"var schema = {\r",
+							"    \"id\": 0,\r",
+							"    \"game\": {\r",
+							"        \"name\": \"Disco Elysium\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/addGame/:groupId/game/:game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"addGame",
+						":groupId",
+						"game",
+						":game"
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						},
+						{
+							"key": "game",
+							"value": "Disco%20Elysium",
+							"description": "Disco%20Elysium / Metroid%20Prime"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72fa1242-b1a3-4f6e-b486-9c1b67e034a6",
+						"exec": [
+							"var schema = {\r",
+							"    \"id\": 0,\r",
+							"    \"game\": \"Disco Elysium\"\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/removeGame/:groupId/game/:game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"removeGame",
+						":groupId",
+						"game",
+						":game"
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						},
+						{
+							"key": "game",
+							"value": "Disco%20Elysium"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Games By total_rating",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "932c7ea2-6167-4e73-a19d-c50f30a156da",
+						"exec": [
+							"var schema = {\r",
+							"    \"max\": 30,\r",
+							"    \"min\": 25,\r",
+							"    \"group\": {\r",
+							"        \"groupId\": 0\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/getGameByRating/:groupId/min/:minRating/max/:maxRating",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"getGameByRating",
+						":groupId",
+						"min",
+						":minRating",
+						"max",
+						":maxRating"
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						},
+						{
+							"key": "minRating",
+							"value": "30"
+						},
+						{
+							"key": "maxRating",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Games By total_rating min",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01f23db1-d181-42bf-b9ee-2fc11efbf34b",
+						"exec": [
+							"var schema = {\r",
+							"    \"max\": 93,\r",
+							"    \"min\": 0,\r",
+							"    \"group\": {\r",
+							"        \"groupId\": 0\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/getGameByRating/:groupId/min/:minRating",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"getGameByRating",
+						":groupId",
+						"min",
+						":minRating"
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						},
+						{
+							"key": "minRating",
+							"value": "93"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Games By total_rating max",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd31e7be-8627-46c9-b272-28dbf6b8bf32",
+						"exec": [
+							"var schema = {\r",
+							"    \"max\": 93,\r",
+							"    \"min\": 0,\r",
+							"    \"group\": {\r",
+							"        \"groupId\": 0\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/getGameByRating/:groupId/max/:maxRating",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"getGameByRating",
+						":groupId",
+						"max",
+						":maxRating"
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						},
+						{
+							"key": "maxRating",
+							"value": "93"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Games By total_rating ok",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "352d82bf-5c31-4435-bc6a-8b28ce6814dc",
+						"exec": [
+							"var schema = {\r",
+							"    \"max\": 100,\r",
+							"    \"min\": 0,\r",
+							"    \"group\": {\r",
+							"        \"groupId\": 0\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"create Group successful\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/group/getGameByRating/:groupId/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"group",
+						"getGameByRating",
+						":groupId",
+						""
+					],
+					"variable": [
+						{
+							"key": "groupId",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
