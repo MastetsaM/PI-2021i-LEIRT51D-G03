@@ -59,14 +59,18 @@ function newdb(baseUrl) {
                 if (answer.error || answer.status)
                     throw error.INVALID_GROUP
                 else
-                    return answer
+                    return {
+                        result: answer.result
+                    }
+            } else {
+                throw error.INVALID_ARGUMENTS
             }
         },
 
         listOfGroups: async function () {
             const response = await fetch(`${groupsBaseUrl}/_search`)
             const answer = await response.json()
-            const hits = answer.hits
+            const hits = answer.hits.hits
             const groups = hits.map(hit => hit._source)
 
             return groups
@@ -75,9 +79,12 @@ function newdb(baseUrl) {
         infoGroup: async function (groupId) {
             const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`)
             const answer = await response.json()
-            const groups = answer._source
-
-            return groups
+            if (answer.found === false)
+                throw error.INVALID_GROUP
+            else {
+                const groups = answer._source
+                return groups
+            }
         },
 
         addGame: async function (groupId, gameToAdd) {
@@ -98,7 +105,12 @@ function newdb(baseUrl) {
 
             const response = await fetch(`${groupsBaseUrl}/_update/${groupId}`, options)
             const answer = await response.json()
-            return answer
+            if (answer.error || answer.status)
+                throw error.INVALID_GROUP
+            else
+                return {
+                    result: answer.result
+                }
         },
 
         removeGame: function (groupId, removeGame) {

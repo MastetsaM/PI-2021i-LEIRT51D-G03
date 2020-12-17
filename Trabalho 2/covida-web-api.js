@@ -107,11 +107,14 @@ function webapi(app, service) {
 
         addGame: (req, res) => {
             const groupId = JSON.stringify(req.params.groupId).slice(1, -1)
-            const game = req.params.game
+            const game = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ')
 
             service.getGameByName(game)
                 .then(games => {
-                    service.addGame(groupId, games[0])
+                    if (games.length === 0)
+                        errorHandler(error.NO_INFO, res)
+                    else
+                        service.addGame(groupId, games[0])
                         .then(newGames => res.json(newGames))
                         .catch(err => errorHandler(err, res))
                 })
