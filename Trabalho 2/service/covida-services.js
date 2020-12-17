@@ -6,60 +6,66 @@ function service(covida_db, igdb) {
 
     const theService = {
 
-        getPopularGames: (resFunc) => {
-            igdb.getPopularGames((err, games) => resFunc(err, games))
+        getPopularGames: () => {
+            return igdb.getPopularGames()
         },
 
-        getGameByName: (game, resFunc) => {
-            if (typeof game === "string")
-                igdb.getGameByName(game, (err, games) => resFunc(err, games || {
-                    info: "No game found"
-                }))
-            else
-                resFunc(error.INVALID_ARGUMENTS)
+        getGameByName: async (game) => {
+            if (typeof game === "string") {
+                return await igdb.getGameByName(game)
+                    .then(games => games || [])
+            } else
+                throw error.INVALID_ARGUMENTS
         },
 
-        newGroup: (group, resFunc) => {
+        newGroup: async (group) => {
             if (group)
-                covida_db.createGroup(group, (err, newGroup) => resFunc(err, newGroup))
+                return await covida_db.createGroup(group)
             else
-                resFunc(error.INVALID_ARGUMENTS)
+                throw error.INVALID_ARGUMENTS
         },
 
-        editGroup: (groupId, group, resFunc) => {
-            if (typeof groupId === "number" && group)
-                covida_db.editGroup(groupId, group, (err, newGroup) => resFunc(err, newGroup))
+        editGroup: async (groupId, group) => {
+            if (typeof groupId === "string" && group)
+                return await covida_db.editGroup(groupId, group)
             else
-                resFunc(error.INVALID_ARGUMENTS)
+                throw error.INVALID_ARGUMENTS
         },
 
-        getAllGroups: (resFunc) => {
-            covida_db.listOfGroups((groups) => resFunc(groups || []))
+        getAllGroups: async () => {
+            const groups = await covida_db.listOfGroups()
+            return groups || []
         },
 
-        getSpecGroup: (groupId, resFunc) => {
-            if (typeof groupId === "number")
-                covida_db.infoGroup(groupId, (err, group) => resFunc(err, group))
+        getSpecGroup: async (groupId) => {
+            if (typeof groupId === "string")
+                return covida_db.infoGroup(groupId)
             else
-                resFunc(error.INVALID_ARGUMENTS)
+                throw error.INVALID_ARGUMENTS
         },
 
-        addGame: (groupId, newGame, resFunc) => {
-            if (typeof groupId === "number" && newGame)
-                covida_db.addGame(groupId, newGame, (err, game) => resFunc(err, game))
+        addGame: async (groupId, newGame) => {
+            if (typeof groupId === "string" && newGame)
+                return covida_db.addGame(groupId, newGame)
             else
-                resFunc(error.INVALID_ARGUMENTS)
+                throw error.INVALID_ARGUMENTS
         },
 
-        removeGame: (groupId, game, resFunc) => {
-            if (typeof groupId === "number" && typeof game === "string")
-                covida_db.removeGame(groupId, game, (err, games) => resFunc(err, games || []))
-            else
-                resFunc(error.INVALID_ARGUMENTS)
+        removeGame: async (groupId, game) => {
+            if (typeof groupId === "string" && typeof game === "string") {
+                return await covida_db.removeGame(groupId, game).then(games => games || [])
+            } else
+                throw error.INVALID_ARGUMENTS
         },
 
-        getGamesByRating: (group, minRating, maxRating, resFunc) => {
+        removeGroup: async (groupId) => {
+            if (typeof groupId === "string") {
+                return await covida_db.removeGroup(groupId).then(games => games || [])
+            } else
+                throw error.INVALID_ARGUMENTS
+        },
 
+        getGamesByRating: async (groupId, minRating, maxRating) => {
             let min = minRating || 0
             if (min < 0) min = 0
             if (min > 100) min = 100
@@ -68,31 +74,17 @@ function service(covida_db, igdb) {
             if (max > 100) max = 100
             if (max < 0) max = 0
 
-            if (group && typeof min === "number" && typeof max === "number") {
-
-                if (min > max) {
-                    const aux = max
-                    max = min
-                    min = aux
-                }
-
-                if (group.games) {
-                    const gamesRespectRules = group.games.filter(game => game.total_rating <= max && game.total_rating >= min).sort((a, b) => b.total_rating - a.total_rating);
-                    resFunc(null, gamesRespectRules)
-                } else
-                    resFunc(null, [])
-            } else {
-                resFunc(error.INVALID_ARGUMENTS)
+            if (min > max) {
+                const aux = max
+                max = min
+                min = aux
             }
-        },
 
-        removeGroup: (groupId, resFunc) => {
-            if (typeof groupId === "number") {
-                covida_db.removeGroup(groupId, (err, newDb) => {
-                    resFunc(err, newDb)
-                })
+            if (typeof groupId === "string" && typeof min === "number" && typeof max === "number") {
+
+                return await covida_db.getGamesByRating(groupId, min, max).then(games => games || [])
             } else
-                resFunc(error.INVALID_ARGUMENTS)
+                throw error.INVALID_ARGUMENTS
         }
 
     }

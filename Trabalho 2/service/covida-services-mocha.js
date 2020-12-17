@@ -5,7 +5,7 @@ function service() {
     const theService = {
 
         getPopularGames: (resFunc) => {
-            resFunc(null, [{
+            return Promise.resolve([{
                 name: "game1"
             }, {
                 name: "game2"
@@ -15,47 +15,47 @@ function service() {
         },
 
         getGameByName: (game, resFunc) => {
-            resFunc(null, {
+            return Promise.resolve({
                 name: game
             })
         },
 
         newGroup: (group, resFunc) => {
-            resFunc(null, group)
+            return Promise.resolve(group)
         },
 
         editGroup: (groupId, group, resFunc) => {
-            resFunc(null, {
+            return Promise.resolve({
                 id: groupId,
                 toEditGroup: group
             })
         },
 
         getAllGroups: (resFunc) => {
-            resFunc([{}, {}, {}])
+            return Promise.resolve([{}, {}, {}])
         },
 
         getSpecGroup: (groupId, resFunc) => {
-            resFunc(null, {
+            return Promise.resolve({
                 groupId: groupId
             })
         },
 
         addGame: (groupId, newGame, resFunc) => {
-            resFunc(null, {
+            return Promise.resolve({
                 id: groupId,
                 game: newGame
             })
         },
 
         removeGame: (groupId, game, resFunc) => {
-            resFunc(null, {
+            return Promise.resolve({
                 id: groupId,
                 game: game
             })
         },
 
-        getGamesByRating: (group, minRating, maxRating, resFunc) => {
+        getGamesByRating: (group, minRating, maxRating) => {
 
             if (minRating > maxRating) {
                 const aux = maxRating
@@ -77,7 +77,11 @@ function service() {
                 group: group
             }
 
-            resFunc(null, result)
+            return Promise.resolve(result)
+        },
+
+        removeGroup: async () => {
+            return Promise.resolve([])
         }
 
     }

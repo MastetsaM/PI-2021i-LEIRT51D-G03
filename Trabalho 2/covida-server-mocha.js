@@ -8,7 +8,7 @@ const express = require('express')
 const app = express()
 
 const serviceCreator = require('./service/covida-services-mocha.js')
-const webapiCreator = require('./webapi/covida-web-api.js')
+const webapiCreator = require('./covida-web-api.js')
 
 const service = serviceCreator()
 
