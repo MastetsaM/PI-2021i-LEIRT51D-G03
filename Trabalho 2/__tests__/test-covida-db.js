@@ -104,7 +104,7 @@ describe('db', function () {
                 .expect('header', 'Content-Type', 'application/json; charset=utf-8')
                 .then(res => expect(res.json.cause).toEqual("Invalig argument."))
         })
-        it('if group has name and description return new group', function () {
+        it('if group has name and description return new group ID', function () {
             return frisby
                 .post(`${base_url}/group/newGroup`, {
                     "name": "gg",
@@ -221,7 +221,7 @@ describe('db', function () {
                 .then(res => expect(res.json.cause).toEqual("Invalig argument."))
         })
 
-        it('if all good it should return the edited group', function () {
+        it('if all good it should return result updated', function () {
             return frisby.put(`${base_url}/group/${groupId}`, {
                     "name": "new name",
                     "desc": "new description"
@@ -234,44 +234,14 @@ describe('db', function () {
 
     })
 
-    /*describe('listOfGroups', function () {
-           it('if no groups return null', function () {
-               return frisby.put(`${base_url}/group/list`)
-                   .expect('status', 200)
-                   .expect('header', 'Content-Type', 'application/json; charset=utf-8')
-                   .then(res => expect(res.json.result).toEqual("updated"))
-           })
-           
-                   it('should return all the groups', function () {
-                       return frisby.put(`${base_url}/group/list`)
-                           .expect('status', 200)
-                           .expect('header', 'Content-Type', 'application/json; charset=utf-8')
-                           .then(res => expect(res.json.result).toEqual("updated"))
-                       const db = dbCreator()
-
-                       let newGroup = {
-                           name: "new name 1",
-                           desc: "new description 1"
-                       }
-                       db.createGroup(newGroup, (err, editedGroup) => {})
-
-                       let newGroup2 = {
-                           name: "new name 2",
-                           desc: "new description 2"
-                       }
-                       db.createGroup(newGroup2, (err, editedGroup) => {})
-
-                       db.listOfGroups(db => {
-                           expect(db).to.be.an("array").with.lengthOf(2)
-
-                           expect(db[0].name).to.be.an("string").equal(newGroup.name)
-                           expect(db[1].name).to.be.an("string").equal(newGroup2.name)
-
-                           expect(Object.keys(db[0]).length).equal(4)
-                           expect(Object.keys(db[1]).length).equal(4)
-                       })
-                   })
-    })*/
+    describe('listOfGroups', function () {
+        it('it should always return an array of groups even if empty ', function () {
+            return frisby.get(`${base_url}/group/list`)
+                .expect('status', 200)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .expect('jsonTypes', "list_of_groups", frisby.Joi.array().required())
+        })
+    })
 
 
     describe('infoGroup', function () {
@@ -282,37 +252,25 @@ describe('db', function () {
                 .then(res => expect(res.json.cause).toEqual("Invalig argument."))
         })
 
-        it('if groups created and groupId in range return specified group', function () {
+        it('if groups created and groupId valid return specified group', function () {
             return frisby.get(`${base_url}/group/${groupId}`)
                 .expect('status', 200)
                 .expect('header', 'Content-Type', 'application/json; charset=utf-8')
                 .expect('jsonTypes', {
-                    "name": frisby.Joi.string().required(),
-                    "description": frisby.Joi.string().required(),
-                    "games": frisby.Joi.array().required()
+                    'id': frisby.Joi.string(),
+                    'source': frisby.Joi.number()
+                })
+                .expect('jsonTypes', '', {
+                    "name": frisby.Joi.string(),
+                    "description": frisby.Joi.string(),
+                    "games": frisby.Joi.array()
                 })
         })
     })
 
 
     describe('addGame', function () {
-        it('if no group criated/or invalid groupId return error', function () {
-            return frisby.put(`${base_url}/group/groupId/games`)
-                .expect('status', 500)
-                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
-                .then(res => expect(res.json.cause)
-                    .toEqual("Game/Group Not found / No Game/Group Info"))
-        })
-
-        it('If game to add has no info return error', function () {
-            return frisby.put(`${base_url}/group/groupId/Disco%20Elys`)
-                .expect('status', 500)
-                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
-                .then(res => expect(res.json.cause)
-                    .toEqual("Game/Group Not found / No Game/Group Info"))
-        })
-
-        it('if Group id is out of  bounds should return error', function () {
+        it('if Group id is not valid should return error', function () {
             return frisby.put(`${base_url}/group/groupId/Disco%20Elysium`)
                 .expect('status', 500)
                 .expect('header', 'Content-Type', 'application/json; charset=utf-8')
@@ -320,6 +278,15 @@ describe('db', function () {
                     .toEqual("Invalid Group id."))
 
         })
+
+        it('If game to add has no info return error', function () {
+            return frisby.put(`${base_url}/group/${groupId}/Disco%20Elys`)
+                .expect('status', 500)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.cause)
+                    .toEqual("Game/Group Not found / No Game/Group Info"))
+        })
+
         it('if valide groupId and game return result', function () {
             return frisby.put(`${base_url}/group/${groupId}/Disco%20Elysium`)
                 .expect('status', 200)
@@ -329,113 +296,99 @@ describe('db', function () {
     })
 
 
-    /*
-        describe('removeGame', function () {
-            it('if no group criated return error', function () {
-                const db = dbCreator()
 
-                let newGroup = {
-                    name: "new name",
-                    desc: "new description"
-                }
-                db.removeGame(0, newGroup, (err, editedGroup) => {
-                    expect(err).to.be.equal(4)
-                    expect(editedGroup).to.be.undefined
+    describe('removeGame', function () {
+        it('if Group id is out of  bounds should return error', function () {
+            return frisby.delete(`${base_url}/group/groupId/Disco%20Elysium`)
+                .expect('status', 500)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.cause).toEqual("Invalid Group id."))
+        })
+        it('if trying to remove game that isnt in the group return error', function () {
+            return frisby.delete(`${base_url}/group/${groupId}/Metroid%20Prime`)
+                .expect('status', 500)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.cause).toEqual("Game/Group Not found / No Game/Group Info"))
+
+        })
+        it('if all good return "result: updated" ', function () {
+            return frisby.delete(`${base_url}/group/${groupId}/Disco%20Elysium`)
+                .expect('status', 200)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.result).toEqual("updated"))
+        })
+    })
+
+    describe('getGamesByRating', function () {
+        it('if Groupid is not valid  return error', function () {
+            return frisby.get(`${base_url}/group/groupId/min/60`)
+                .expect('status', 500)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.cause).toEqual("Invalid Group id.")) &&
+                frisby.get(`${base_url}/group/groupId/max/60`)
+                .expect('status', 500)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.cause).toEqual("Invalid Group id.")) &&
+                frisby.get(`${base_url}/group/groupId/60/96`)
+                .expect('status', 500)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.cause).toEqual("Invalid Group id."))
+        })
+        it('request must only return games that respest the total rating range', async function () {
+            await frisby.put(`${base_url}/group/${groupId}/Disco%20Elysium`)
+                .expect('status', 200)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => expect(res.json.result).toEqual("updated"))
+
+
+            return frisby.get(`${base_url}/group/${groupId}/min/60`)
+                .expect('status', 200)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => res.json.every(game => game.total_rating >= 60)) &&
+                frisby.get(`${base_url}/group/${groupId}/max/96`)
+                .expect('status', 200)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => res.json.every(game => game.total_rating <= 96)) &&
+                frisby.get(`${base_url}/group/${groupId}/60/96`)
+                .expect('status', 200)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .then(res => res.json.every(game => game.total_rating >= 60 && game.total_rating <= 96))
+        })
+        it('the result of this request must be ordered by total_rating DESC', async function () {
+            await frisby.put(`${base_url}/group/${groupId}/Metroid%20Prime`)
+
+
+            return frisby.get(`${base_url}/group/${groupId}/60/96`)
+                .expect('status', 200)
+                .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                .expect('jsonTypes', frisby.Joi.array().required())
+                .then(res => {
+                    const result = res.json
+                    expect(result.length).toEqual(2)
+                    const ratingRules = result.every(game => game.total_rating >= 60 && game.total_rating <= 96)
+                    let orderRule = true
+                    for (let index = 0; index < result.length - 1; index++) {
+                        if (result[index].total_rating < result[index + 1].total_rating)
+                            orderRule = false
+                    }
+                    expect(ratingRules).toEqual(true)
+                    expect(orderRule).toEqual(true)
                 })
+        })
+
+        describe('removeGroup', function () {
+            it('if Groupid is not valid  return error', function () {
+                return frisby.delete(`${base_url}/group/groupId`)
+                    .expect('status', 500)
+                    .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                    .then(res => expect(res.json.cause).toEqual("Invalid Group id."))
             })
-
-            it('if Group id is out of  bounds should return error', function () {
-                const db = dbCreator()
-
-                let group = {
-                    name: "name",
-                    desc: "description"
-                }
-                db.createGroup(group, () => {})
-
-
-                const game = {
-                    name: "game name"
-                }
-                const groupId = 1
-                db.removeGame(groupId, game, (err, editedGroup) => {
-                    expect(err).to.be.equal(3)
-                    expect(editedGroup).to.be.undefined
-                })
+            it('if Groupid is valid  return "result: deleted"', function () {
+                return frisby.delete(`${base_url}/group/${groupId}`)
+                    .expect('status', 200)
+                    .expect('header', 'Content-Type', 'application/json; charset=utf-8')
+                    .then(res => expect(res.json.result).toEqual("deleted"))
             })
-
-            it('if no games added return null', function () {
-                const db = dbCreator()
-
-                let group = {
-                    name: "name",
-                    desc: "description"
-                }
-                db.createGroup(group, () => {})
-
-                const removeGame = "remove this"
-                const groupId = 0
-                db.removeGame(groupId, removeGame, (err, games) => {
-                    expect(err).to.be.null
-                    expect(games).to.be.null
-                })
-            })
-
-            it('if all good return array of games even if empty ', function () {
-                //prepare
-                const db = dbCreator()
-
-                let group = {
-                    name: "name",
-                    desc: "description"
-                }
-                db.createGroup(group, () => {})
-
-                const newGame = {
-                    name: 'remove this'
-                }
-                const groupId = 0
-                db.addGame(groupId, newGame, () => {})
-
-                const newGame2 = {
-                    name: 'remove this 2'
-                }
-                db.addGame(groupId, newGame2, () => {})
-
-                //test
-                db.removeGame(groupId, 'remove this', (err, games) => {
-                    expect(err).to.be.null
-                    expect(games).to.be.an("array").with.lengthOf(1)
-                    expect(games[0].name).to.be.equal('remove this 2')
-                })
-                db.removeGame(groupId, 'remove this 2', (err, games) => {
-                    expect(err).to.be.null
-                    expect(games).to.be.an("array").that.is.empty
-                })
-            })
-
-            it('if trying to remove game that isnt in the group return error', function () {
-                //prepare
-                const db = dbCreator()
-
-                let group = {
-                    name: "name",
-                    desc: "description"
-                }
-                db.createGroup(group, () => {})
-
-                const newGame = {
-                    name: 'remove this'
-                }
-                const groupId = 0
-                db.addGame(groupId, newGame, () => {})
-
-
-                //test
-                db.removeGame(groupId, 'remove this 2', (err, games) => {
-                    expect(err).to.be.equal(2)
-                    expect(games).to.be.undefined
-                })
-            })
-        })*/
+        })
+    })
 })

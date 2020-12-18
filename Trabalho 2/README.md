@@ -8,7 +8,7 @@ O servidor é constituido por 5 módulos, apresentando dependências entre si:
 -   `covida-web-api.js`  - Implementação dos rotas HTTP que constituem a API REST da aplicação Web.
 -   `covida-services.js`  - Implementação da lógica de cada uma das funcionalidades da aplicação.
 -   `igdb-data.js`  - Acesso à API IGDB.
--   `covida-db.js`  - Acesso ao repositório em memória.
+-   `elasticsearch.js`  - Acesso ao à base de dados.
 
 As dependência entre estes módulos é a seguinte:
 
@@ -74,3 +74,7 @@ Para validar as funcionalidades da **web-api** utilizou-se o postman em conjunç
 De modo a ter resultatos esperados nos testes presentes no postman é necessario o uso do modulo **covida-server-mocha**
 
 Para a validação dos restantes modulos utilizou-se testes **mocha**, isto é, os testes unitarios presentes na pasta test 
+
+
+
+# Wiki - Trabalho 2

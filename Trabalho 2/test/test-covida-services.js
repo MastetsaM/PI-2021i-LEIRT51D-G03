@@ -230,25 +230,6 @@ describe('Service', function () {
 
 
         describe('getAllGroups', function () {
-            it('if gets null groups, it should return an empty array', async function () {
-                let db = {
-                    listOfGroups: function () {
-                        return Promise.resolve(null)
-                    }
-                }
-                const service = serviceCreator(db, null)
-
-                await service.getAllGroups()
-                    .then(groups => expect(groups).to.be.an("array").that.is.empty)
-                    .catch(err => {
-                        console.log("this will never happen20")
-                        expect(err).to.be.undefined
-                    })
-            })
-
-
-
-
             it('if gets groups, it should return the groups', async function () {
                 let db = {
                     listOfGroups: function () {

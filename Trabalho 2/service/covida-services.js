@@ -33,7 +33,7 @@ function service(covida_db, igdb) {
         },
 
         getAllGroups: async () => {
-            const groups = await covida_db.listOfGroups()
+            return covida_db.listOfGroups()
             return groups || []
         },
 

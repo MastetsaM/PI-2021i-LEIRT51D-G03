@@ -171,8 +171,8 @@ function webapi(app, service) {
     app.put('/group/:groupId/:game', theWebApi.addGame)
     app.delete('/group/:groupId/:game', theWebApi.removeGame)
 
-    app.get('/group/:groupId/:minRating', theWebApi.getByRatingWithMin)
-    app.get('/group/:groupId/:maxRating', theWebApi.getByRatingWithmax)
+    app.get('/group/:groupId/min/:minRating', theWebApi.getByRatingWithMin)
+    app.get('/group/:groupId/max/:maxRating', theWebApi.getByRatingWithmax)
     app.get('/group/:groupId/:minRating/:maxRating', theWebApi.getByRatingWithBoth)
 
     app.delete('/group/:groupId', theWebApi.removeGroup)

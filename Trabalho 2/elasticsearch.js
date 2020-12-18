@@ -68,12 +68,30 @@ function newdb(baseUrl) {
         },
 
         listOfGroups: async function () {
-            const response = await fetch(`${groupsBaseUrl}/_search`)
+            const object = {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    size: 10000
+                })
+            }
+            const response = await fetch(`${groupsBaseUrl}/_search`, object)
             const answer = await response.json()
             const hits = answer.hits.hits
-            const groups = hits.map(hit => hit._source)
+            const groups = hits.map(hit => {
+                const info = {
+                    id: hit._id,
+                    source: hit._source
 
-            return groups
+                }
+                return info
+            })
+
+            return {
+                "list_of_groups": groups
+            }
         },
 
         infoGroup: async function (groupId) {
@@ -113,21 +131,31 @@ function newdb(baseUrl) {
                 }
         },
 
-        removeGame: function (groupId, removeGame) {
-            return this.infoGroup(groupId)
-                .then(group => {
-                    const index = group.games.findIndex(game => game.name === removeGame)
-                    group.games.splice(index, 1)
-                    const options = {
-                        method: 'PUT',
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(group)
-                    }
+        removeGame: async function (groupId, removeGame) {
+            let myGroup
+            await this.infoGroup(groupId).then(group => myGroup = group)
 
-                    return fetch(`${groupsBaseUrl}/_doc/${groupId}`, options).then(answer => answer.json())
-                })
+            const index = myGroup.games.findIndex(game => game.name === removeGame)
+            if (index === -1)
+                throw error.NO_INFO
+            myGroup.games.splice(index, 1)
+            const options = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(myGroup)
+            }
+
+            const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`, options)
+            const answer = await response.json()
+            if (answer.error || answer.status)
+                throw error.INVALID_GROUP
+            else
+                return {
+                    result: answer.result
+                }
+
         },
 
         getGamesByRating: function (groupId, min, max) {
@@ -154,7 +182,12 @@ function newdb(baseUrl) {
 
             const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`, options)
             const answer = await response.json()
-            return answer
+            if (answer.result === "not_found")
+                throw error.INVALID_GROUP
+            else
+                return {
+                    result: answer.result
+                }
         }
     }
     return thedb
