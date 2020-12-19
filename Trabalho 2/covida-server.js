@@ -12,7 +12,7 @@ const port = process.argv[2] || default_port
 const express = require('express')
 const app = express()
 
-const serviceCreator = require('./service/covida-services.js')
+const serviceCreator = require('./covida-services.js')
 const dbCreator = require('./elasticsearch.js')
 const webapiCreator = require('./covida-web-api.js')
 

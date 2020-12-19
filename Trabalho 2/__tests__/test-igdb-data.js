@@ -13,7 +13,14 @@ describe('igdb-data', function () {
                 .get(`${base_url}/game/popular`)
                 .expect('status', 200)
                 .expect('header', 'Content-Type', 'application/json; charset=utf-8')
-                .expect('jsonTypes', frisby.Joi.array())
+                .expect('jsonTypes', frisby.Joi.array().required())
+                .expect('jsonTypes', "*", {
+                    id: frisby.Joi.number().required(),
+                    name: frisby.Joi.string().required(),
+                    rating: frisby.Joi.number(),
+                    total_rating: frisby.Joi.number(),
+                })
+
                 .then(function (res) {
                     expect(res.json.length).toEqual(50)
                 })

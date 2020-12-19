@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect
 const error = require('../covida-errors.js')
-const serviceCreator = require('../service/covida-services.js')
+const serviceCreator = require('../covida-services.js')
 
 describe('Service', function () {
     describe('igdb', function () {

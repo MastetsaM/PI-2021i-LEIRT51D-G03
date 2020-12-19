@@ -6,33 +6,2531 @@
 	},
 	"item": [
 		{
+			"name": "New Group",
+			"item": [
+				{
+					"name": "addGroup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if no name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData.id).to.be.string;\r",
+									"    pm.globals.set(\"groupId\",jsonData.id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "no name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if no name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": 1,\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name array",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": 1,\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name object",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": {},\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name null",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": 1,\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "no Desc",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if no description\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc object",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc array",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc null",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/newGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"newGroup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Edit Group",
+			"item": [
+				{
+					"name": "editGroup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if no name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"result\": \"updated\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"favoritos\",\r\n    \"desc\": \"versao editada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "no name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if no name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": 1,\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name array",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": 1,\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name object",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": {},\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "name null",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if description is not string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": 1,\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "no Desc",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if no description\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc object",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc array",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desc null",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalig argument.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"faf\",\r\n    \"desc\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "Mpjbd3YB1tVvh6tXE9cz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "no GroupId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Error if no name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var response = {\r",
+									"    \"cause\": \"Invalid Group id.\"\r",
+									"}\r",
+									"    pm.expect(jsonData).to.eql(response);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"nome\",\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "das"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List Of Groups",
+			"item": [
+				{
+					"name": "listOfGroups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.list_of_groups).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "das",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Specific Group",
+			"item": [
+				{
+					"name": "Invalid Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cause).to.eql(\"Invalid Group id.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "groupId"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"name\": \"favoritos\",\r",
+									"    \"description\": \"versao editada\",\r",
+									"    \"games\": []\r",
+									"}\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an(\"object\");\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add Games",
+			"item": [
+				{
+					"name": "Invalid group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"cause\": \"Invalid Group id.\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":game"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "groupId"
+								},
+								{
+									"description": "Disco%20Elysium / Metroid%20Prime",
+									"key": "game",
+									"value": "Disco%20Elysium"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"cause\": \"Game/Group Not found / No Game/Group Info\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":game"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								},
+								{
+									"description": "Disco%20Elysium / Metroid%20Prime",
+									"key": "game",
+									"value": "Disco%20Elysi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addGame",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"result\": \"updated\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var groupId = pm.globals.get(\"groupId\");\r",
+									"\r",
+									"var options = {\r",
+									"    url: 'http://localhost:8888/group/'+groupId+'/Metroid%20Prime',\r",
+									"    method: 'PUT',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"}\r",
+									"\r",
+									"pm.sendRequest(options, function (err, res) {\r",
+									"    console.log(res)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":game"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								},
+								{
+									"key": "game",
+									"value": "Disco%20Elysium",
+									"description": "Disco%20Elysium / Metroid%20Prime"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Games By Rating",
+			"item": [
+				{
+					"name": "min",
+					"item": [
+						{
+							"name": "Invalid Group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var schema = {\r",
+											"    \"cause\": \"Invalid Group id.\"\r",
+											"};\r",
+											"\r",
+											"pm.test(\"create Group successful\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.eql(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8888/group/:groupId/min/:minRating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"group",
+										":groupId",
+										"min",
+										":minRating"
+									],
+									"variable": [
+										{
+											"key": "groupId",
+											"value": "groupId"
+										},
+										{
+											"key": "minRating",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"create Group successful\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an(\"array\").with.lengthOf(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8888/group/:groupId/min/:minRating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"group",
+										":groupId",
+										"min",
+										":minRating"
+									],
+									"variable": [
+										{
+											"key": "groupId",
+											"value": "{{groupId}}"
+										},
+										{
+											"key": "minRating",
+											"value": "98"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ordered",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"create Group successful\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var order = jsonData[0].total_rating>jsonData[1].total_rating\r",
+											"    pm.expect(order).to.eql(true)\r",
+											"    pm.expect(jsonData).to.be.an(\"array\").with.lengthOf(2);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8888/group/:groupId/min/:minRating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"group",
+										":groupId",
+										"min",
+										":minRating"
+									],
+									"variable": [
+										{
+											"key": "groupId",
+											"value": "{{groupId}}"
+										},
+										{
+											"key": "minRating",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "max",
+					"item": [
+						{
+							"name": "Invalid Group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var schema = {\r",
+											"    \"cause\": \"Invalid Group id.\"\r",
+											"};\r",
+											"\r",
+											"pm.test(\"create Group successful\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.eql(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8888/group/:groupId/max/:maxRating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"group",
+										":groupId",
+										"max",
+										":maxRating"
+									],
+									"variable": [
+										{
+											"key": "groupId",
+											"value": "groupId"
+										},
+										{
+											"key": "maxRating",
+											"value": "93"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"create Group successful\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an(\"array\").with.lengthOf(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8888/group/:groupId/max/:maxRating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"group",
+										":groupId",
+										"max",
+										":maxRating"
+									],
+									"variable": [
+										{
+											"key": "groupId",
+											"value": "{{groupId}}"
+										},
+										{
+											"key": "maxRating",
+											"value": "90"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ordered",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"create Group successful\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var order = jsonData[0].total_rating>jsonData[1].total_rating\r",
+											"    pm.expect(order).to.eql(true)\r",
+											"    pm.expect(jsonData).to.be.an(\"array\").with.lengthOf(2);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8888/group/:groupId/max/:maxRating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8888",
+									"path": [
+										"group",
+										":groupId",
+										"max",
+										":maxRating"
+									],
+									"variable": [
+										{
+											"key": "groupId",
+											"value": "{{groupId}}"
+										},
+										{
+											"key": "maxRating",
+											"value": "98"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Invalid Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"cause\": \"Invalid Group id.\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:minRating/:maxRating",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":minRating",
+								":maxRating"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "groupId"
+								},
+								{
+									"key": "minRating",
+									"value": "64"
+								},
+								{
+									"key": "maxRating",
+									"value": "70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an(\"array\").with.lengthOf(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:minRating/:maxRating",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":minRating",
+								":maxRating"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								},
+								{
+									"key": "minRating",
+									"value": "96"
+								},
+								{
+									"key": "maxRating",
+									"value": "97"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ordered",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var order = jsonData[0].total_rating>jsonData[1].total_rating\r",
+									"    pm.expect(order).to.eql(true)\r",
+									"    pm.expect(jsonData).to.be.an(\"array\").with.lengthOf(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:minRating/:maxRating",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":minRating",
+								":maxRating"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								},
+								{
+									"key": "minRating",
+									"value": "64"
+								},
+								{
+									"key": "maxRating",
+									"value": "98"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Remove Games",
+			"item": [
+				{
+					"name": "Invalid game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"cause\": \"Game/Group Not found / No Game/Group Info\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":game"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								},
+								{
+									"key": "game",
+									"value": "Disco%20Elys"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"cause\": \"Invalid Group id.\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":game"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "groupId"
+								},
+								{
+									"key": "game",
+									"value": "Disco%20Elysium"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"result\": \"updated\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId/:game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId",
+								":game"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								},
+								{
+									"key": "game",
+									"value": "Disco%20Elysium"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Remove Group",
+			"item": [
+				{
+					"name": "Invalid Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"cause\": \"Invalid Group id.\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "groupId"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"result\": \"deleted\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"create Group successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8888/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "{{groupId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "getPopular",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "a30c9fd5-ed26-4c24-a1b4-0e6ee8bbf802",
 						"exec": [
-							"var schema = [\r",
-							"    {\r",
-							"        \"name\": \"game1\"\r",
-							"    },\r",
-							"    {\r",
-							"        \"name\": \"game2\"\r",
-							"    },\r",
-							"    {\r",
-							"        \"name\": \"game3\"\r",
-							"    }\r",
-							"];\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -46,10 +2544,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {}
-					}
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:8888/Game/Popular",
@@ -72,20 +2567,8 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3a6b39c6-85d5-492c-9119-abaec0c6aee6",
 						"exec": [
-							"var schema = {\r",
-							"    \"name\": \"Project +\"\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -110,10 +2593,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {}
-					}
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:8888/Game/:game",
@@ -129,618 +2609,12 @@
 					"variable": [
 						{
 							"key": "game",
-							"value": "Project%20+"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "addGroup",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "8fa987dc-3ed4-4a79-be44-83cac2ce62bb",
-						"exec": [
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"faforitos\");\r",
-							"    pm.expect(jsonData.desc).to.eql(\"esta é a versão errada\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"faforitos\",\r\n    \"desc\": \"esta é a versão errada\"\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/newGroup",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"newGroup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "editGroup",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "9ef12024-2b9c-43dd-8cd9-49253073abc5",
-						"exec": [
-							"var schema = {\r",
-							"    \"id\": 0,\r",
-							"    \"toEditGroup\": {\r",
-							"        \"name\": \"favoritos\",\r",
-							"        \"desc\": \"versao editada\"\r",
-							"    }\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"favoritos\",\r\n    \"desc\": \"versao editada\"\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/edit/:groupId",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"edit",
-						":groupId"
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "listOfGroups",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d80eb6b5-e56e-4f90-8793-5a8a6b14e04c",
-						"exec": [
-							"var schema = [\r",
-							"    {},\r",
-							"    {},\r",
-							"    {}\r",
-							"];\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/list",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Specific Group",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "436f0ee2-74ab-45ed-80b5-9fd3dbd005ae",
-						"exec": [
-							"var schema = {\r",
-							"    \"groupId\": 0\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/info/:groupId",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"info",
-						":groupId"
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "addGame",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "e651ed9c-28aa-400e-8ee7-e0ad90aa5f2b",
-						"exec": [
-							"var schema = {\r",
-							"    \"id\": 0,\r",
-							"    \"game\": {\r",
-							"        \"name\": \"Disco Elysium\"\r",
-							"    }\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/addGame/:groupId/game/:game",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"addGame",
-						":groupId",
-						"game",
-						":game"
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
-						},
-						{
-							"key": "game",
-							"value": "Disco%20Elysium",
-							"description": "Disco%20Elysium / Metroid%20Prime"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Remove Game",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "72fa1242-b1a3-4f6e-b486-9c1b67e034a6",
-						"exec": [
-							"var schema = {\r",
-							"    \"id\": 0,\r",
-							"    \"game\": \"Disco Elysium\"\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/removeGame/:groupId/game/:game",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"removeGame",
-						":groupId",
-						"game",
-						":game"
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
-						},
-						{
-							"key": "game",
-							"value": "Disco%20Elysium"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Games By total_rating",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "932c7ea2-6167-4e73-a19d-c50f30a156da",
-						"exec": [
-							"var schema = {\r",
-							"    \"max\": 30,\r",
-							"    \"min\": 25,\r",
-							"    \"group\": {\r",
-							"        \"groupId\": 0\r",
-							"    }\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/getGameByRating/:groupId/min/:minRating/max/:maxRating",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"getGameByRating",
-						":groupId",
-						"min",
-						":minRating",
-						"max",
-						":maxRating"
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
-						},
-						{
-							"key": "minRating",
-							"value": "30"
-						},
-						{
-							"key": "maxRating",
-							"value": "25"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Games By total_rating min",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "01f23db1-d181-42bf-b9ee-2fc11efbf34b",
-						"exec": [
-							"var schema = {\r",
-							"    \"max\": 93,\r",
-							"    \"min\": 0,\r",
-							"    \"group\": {\r",
-							"        \"groupId\": 0\r",
-							"    }\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/getGameByRating/:groupId/min/:minRating",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"getGameByRating",
-						":groupId",
-						"min",
-						":minRating"
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
-						},
-						{
-							"key": "minRating",
-							"value": "93"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Games By total_rating max",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "cd31e7be-8627-46c9-b272-28dbf6b8bf32",
-						"exec": [
-							"var schema = {\r",
-							"    \"max\": 93,\r",
-							"    \"min\": 0,\r",
-							"    \"group\": {\r",
-							"        \"groupId\": 0\r",
-							"    }\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/getGameByRating/:groupId/max/:maxRating",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"getGameByRating",
-						":groupId",
-						"max",
-						":maxRating"
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
-						},
-						{
-							"key": "maxRating",
-							"value": "93"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Games By total_rating ok",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "352d82bf-5c31-4435-bc6a-8b28ce6814dc",
-						"exec": [
-							"var schema = {\r",
-							"    \"max\": 100,\r",
-							"    \"min\": 0,\r",
-							"    \"group\": {\r",
-							"        \"groupId\": 0\r",
-							"    }\r",
-							"};\r",
-							"\r",
-							"pm.test(\"create Group successful\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.eql(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8888/group/getGameByRating/:groupId/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8888",
-					"path": [
-						"group",
-						"getGameByRating",
-						":groupId",
-						""
-					],
-					"variable": [
-						{
-							"key": "groupId",
-							"value": "0"
+							"value": "Action%20Fighter"
 						}
 					]
 				}
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

@@ -1,6 +1,6 @@
 'use strict'
 
-const error = require('../covida-errors.js')
+const error = require('./covida-errors.js')
 
 function service(covida_db, igdb) {
 

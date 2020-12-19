@@ -148,19 +148,20 @@ O objetivo principal desta parte é refazer o código implementado (_refactor_) 
 3. [Download Elasticsearch](https://www.elastic.co/downloads/elasticsearch)
 
 ## Como Usar
-**# Pré-requisitos -** De modo a executar o programa com sucesso é necessario realizar a instalação
-1. Selectionar o Trabalho que pretende escolher
-2. Iniciar o servidor
+**# Pré-requisitos -** De modo a executar o programa com sucesso é necessario realizar a <a href="#instalação">instalação</a>
+1. Abrir a pasta do Trabalho 2
+2. Abrir o terminal(Prompt de Comando)
+3. Iniciar o servidor
    ```sh
-   node start
+   node .\covida-server.js
    ```
-3. Iniciar a Base de dados
+4. Iniciar a Base de dados
    ```sh
    Run `bin/elasticsearch` (or `bin\elasticsearch.bat` on Windows)
    or
    Run `curl http://localhost:9200/` or `Invoke-RestMethod http://localhost:9200` with PowerShell
    ```
-4. Esta pronto a usar. Basta utilizar os links abaixo para oraganizar os seus grupos
+5. Esta pronto a usar. Basta utilizar os links abaixo para oraganizar os seus grupos
 
 ||**IGDB Options**||
 |-|-------|-------|
@@ -187,7 +188,7 @@ As opções **Create New Group** e  **Edit Group** necessitam de um body com a s
 }
    ```
 
-### Replace:
+### Deve substituir os seguintes elementos:
    ```sh
    :game		-> Nome do jogo a pesquisar
    :groupId	-> Id do grupo a interagir
@@ -198,7 +199,12 @@ As opções **Create New Group** e  **Edit Group** necessitam de um body com a s
 ## Testes-Trab2
 Para este trabalho foram realizados 2 tipos de testes. Testes para o servidor como um todo e testes para os modulos `covida-db`,  `igdb-data`,  `covida-service`, idividualmente. Ambos os testes têm que ser realizados na pasta do segundo trabalho.
 
-Os teste para o servidor foram realizadas através da biblioteca ***frisby***, pelo que para correr os mesmos é necessario o uso do seguinte codigo, no Prompt de Comando: **npx jest**.
+Os teste para o servidor foram realizadas através da biblioteca ***frisby***, pelo que para correr os mesmos é necessario o uso do seguinte codigo, no Prompt de Comando: **npx jest**. Um outro modo para testar o sergidor é através dos testes do **postman**. No entanto para que os testes do postman possam funcionar é necesssario correr todos em simultaneo. Para correr os testes individualmente é necessario garantir as condiçoes necessarias para cada teste (Exemplo: ter groupo criado para testar a funcionalidade de editar grupos). Para correr os testes, tanto com o postman, como com o frisby, é necessario que o servidor e o elasticsearch estejam iniciados.
+<p align="center">
+  <a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
+    <img src="Wiki/postman1.png" alt="Logo" width="80" height="80">
+    <img src="Wiki/postman2.png" alt="Logo" width="80" height="80">
+  </a>
 Para os testes unitarios utilizou-se a biblioteca ***chai***, sendo por isso necessario o uso do codigo **npm test**.
 
 
