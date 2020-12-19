@@ -202,9 +202,10 @@ Para este trabalho foram realizados 2 tipos de testes. Testes para o servidor co
 Os teste para o servidor foram realizadas através da biblioteca ***frisby***, pelo que para correr os mesmos é necessario o uso do seguinte codigo, no Prompt de Comando: **npx jest**. Um outro modo para testar o sergidor é através dos testes do **postman**. No entanto para que os testes do postman possam funcionar é necesssario correr todos em simultaneo. Para correr os testes individualmente é necessario garantir as condiçoes necessarias para cada teste (Exemplo: ter groupo criado para testar a funcionalidade de editar grupos). Para correr os testes, tanto com o postman, como com o frisby, é necessario que o servidor e o elasticsearch estejam iniciados.
 <p align="center">
   <a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
-    <img src="Wiki/postman1.png" alt="Logo" width="80" height="80">
-    <img src="Wiki/postman2.png" alt="Logo" width="80" height="80">
+    <img src="Wiki/postman1.png" alt="Logo" width="400" height="300">
+    <img src="Wiki/postman2.png" alt="Logo" width="500" height="300">
   </a>
+	<p />
 Para os testes unitarios utilizou-se a biblioteca ***chai***, sendo por isso necessario o uso do codigo **npm test**.
 
 
