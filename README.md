@@ -151,33 +151,34 @@ O objetivo principal desta parte é refazer o código implementado (_refactor_) 
 **# Pré-requisitos -** De modo a executar o programa com sucesso é necessario realizar a <a href="#instalação">instalação</a>
 1. Abrir a pasta do Trabalho 2
 2. Abrir o terminal(Prompt de Comando)
-3. Abrir a pasta Elasticsearch adquirida no ponto 3 da instalação e iniciar o servidor
+3. Iniciar o servidor
    ```sh
    node .\covida-server.js
    ```
-4. Iniciar a Base de dados
+4. Abrir a pasta Elasticsearch adquirida no ponto 3 da instalação e iniciar a Base de dados
    ```sh
    Run `bin/elasticsearch` (or `bin\elasticsearch.bat` on Windows)
    or
    Run `curl http://localhost:9200/` or `Invoke-RestMethod http://localhost:9200` with PowerShell
    ```
-5. Esta pronto a usar. Basta utilizar os links abaixo para oraganizar os seus grupos
+5. Esta pronto a usar. Basta utilizar os links abaixo para organizar os seus grupos
 
-||**IGDB Options**||
-|-|-------|-------|
-||Popular Games|http://localhost:8888/Game/Popular|
-||Get Game|http://localhost:8888/Game/:game|
+||**IGDB Options**|Method||
+|-|-------|-------|-------|
+||Popular Games|GET|http://localhost:8888/Game/Popular|
+||Get Game|GET|http://localhost:8888/Game/:game|
 ||**Group Options**||
-||Create New Group|http://localhost:8888/group/newGroup|
-||Edit Group|http://localhost:8888/group/:groupId|
-||List Of Groups|http://localhost:8888/group/list|
-||Get Group|http://localhost:8888/group/:groupId|
-||Add Game|http://localhost:8888/group/:groupId|
-||Remove Group|http://localhost:8888/group/:groupId|
+||Create New Group|POST|http://localhost:8888/group/newGroup|
+||Edit Group|PUT|http://localhost:8888/group/:groupId|
+||List Of Groups|GET|http://localhost:8888/group/list|
+||Get Group|GET|http://localhost:8888/group/:groupId|
+||Add Game|PUT|http://localhost:8888/group/:groupId|
+||Remove Game|DELETE|http://localhost:8888/group/:groupId/:game|
+||Remove Group|DELETE|http://localhost:8888/group/:groupId|
 ||Games By Rate|
-||Minimum|http://localhost:8888/group/:groupId/min/:minRating|
-||Maximum|http://localhost:8888/group/:groupId/max/:maxRating|
-||Min and Max|http://localhost:8888/group/:groupId/:minRating/:maxRating|
+||Minimum|GET|http://localhost:8888/group/:groupId/min/:minRating|
+||Maximum|GET|http://localhost:8888/group/:groupId/max/:maxRating|
+||Min and Max|GET|http://localhost:8888/group/:groupId/:minRating/:maxRating|
 
 ### Body:
 As opções **Create New Group** e  **Edit Group** necessitam de um body com a seguinte estrutura
