@@ -151,7 +151,7 @@ O objetivo principal desta parte é refazer o código implementado (_refactor_) 
 **# Pré-requisitos -** De modo a executar o programa com sucesso é necessario realizar a <a href="#instalação">instalação</a>
 1. Abrir a pasta do Trabalho 2
 2. Abrir o terminal(Prompt de Comando)
-3. Iniciar o servidor
+3. Abrir a pasta Elasticsearch adquirida no ponto 3 da instalação e iniciar o servidor
    ```sh
    node .\covida-server.js
    ```
