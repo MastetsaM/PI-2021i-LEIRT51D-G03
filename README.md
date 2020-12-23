@@ -141,7 +141,7 @@ O objetivo principal desta parte é refazer o código implementado (_refactor_) 
    ```sh
    git clone https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03.git
    ```
-2. Instalar os pacotes NPM 
+2. Entrar na pasta referente ao trabalho 2 e Instalar os pacotes NPM 
    ```sh
    npm install
    ```
