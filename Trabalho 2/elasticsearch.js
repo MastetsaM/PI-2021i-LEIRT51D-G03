@@ -24,12 +24,16 @@ function newdb(baseUrl) {
                         games: []
                     })
                 }
-                const response = await fetch(`${groupsBaseUrl}/_doc`, options)
+                try {
+                    const response = await fetch(`${groupsBaseUrl}/_doc`, options)
 
-                const answer = await response.json()
+                    const answer = await response.json()
 
-                return {
-                    id: answer._id
+                    return {
+                        id: answer._id
+                    }
+                } catch (erro) {
+                    throw error.EXTERNAL_SERVICE_FAILURE
                 }
             } else
                 throw error.INVALID_ARGUMENTS
@@ -53,15 +57,18 @@ function newdb(baseUrl) {
                         }
                     })
                 }
-
-                const response = await fetch(`${groupsBaseUrl}/_update/${groupId}`, options)
-                const answer = await response.json()
-                if (answer.error || answer.status)
-                    throw error.INVALID_GROUP
-                else
-                    return {
-                        result: answer.result
-                    }
+                try {
+                    const response = await fetch(`${groupsBaseUrl}/_update/${groupId}`, options)
+                    const answer = await response.json()
+                    if (answer.error || answer.status)
+                        throw error.INVALID_GROUP
+                    else
+                        return {
+                            result: answer.result
+                        }
+                } catch (erro) {
+                    throw error.EXTERNAL_SERVICE_FAILURE
+                }
             } else {
                 throw error.INVALID_ARGUMENTS
             }
@@ -77,31 +84,39 @@ function newdb(baseUrl) {
                     size: 10000
                 })
             }
-            const response = await fetch(`${groupsBaseUrl}/_search`, object)
-            const answer = await response.json()
-            const hits = answer.hits.hits
-            const groups = hits.map(hit => {
-                const info = {
-                    id: hit._id,
-                    source: hit._source
+            try {
+                const response = await fetch(`${groupsBaseUrl}/_search`, object)
+                const answer = await response.json()
+                const hits = answer.hits.hits
+                const groups = hits.map(hit => {
+                    const info = {
+                        id: hit._id,
+                        source: hit._source
 
+                    }
+                    return info
+                })
+
+                return {
+                    "list_of_groups": groups
                 }
-                return info
-            })
-
-            return {
-                "list_of_groups": groups
+            } catch (erro) {
+                throw error.EXTERNAL_SERVICE_FAILURE
             }
         },
 
         infoGroup: async function (groupId) {
-            const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`)
-            const answer = await response.json()
-            if (answer.found === false)
-                throw error.INVALID_GROUP
-            else {
-                const groups = answer._source
-                return groups
+            try {
+                const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`)
+                const answer = await response.json()
+                if (answer.found === false)
+                    throw error.INVALID_GROUP
+                else {
+                    const groups = answer._source
+                    return groups
+                }
+            } catch (erro) {
+                throw error.EXTERNAL_SERVICE_FAILURE
             }
         },
 
@@ -120,15 +135,18 @@ function newdb(baseUrl) {
                     }
                 })
             }
-
-            const response = await fetch(`${groupsBaseUrl}/_update/${groupId}`, options)
-            const answer = await response.json()
-            if (answer.error || answer.status)
-                throw error.INVALID_GROUP
-            else
-                return {
-                    result: answer.result
-                }
+            try {
+                const response = await fetch(`${groupsBaseUrl}/_update/${groupId}`, options)
+                const answer = await response.json()
+                if (answer.error || answer.status)
+                    throw error.INVALID_GROUP
+                else
+                    return {
+                        result: answer.result
+                    }
+            } catch (erro) {
+                throw error.EXTERNAL_SERVICE_FAILURE
+            }
         },
 
         removeGame: async function (groupId, removeGame) {
@@ -146,30 +164,36 @@ function newdb(baseUrl) {
                 },
                 body: JSON.stringify(myGroup)
             }
-
-            const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`, options)
-            const answer = await response.json()
-            if (answer.error || answer.status)
-                throw error.INVALID_GROUP
-            else
-                return {
-                    result: answer.result
-                }
+            try {
+                const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`, options)
+                const answer = await response.json()
+                if (answer.error || answer.status)
+                    throw error.INVALID_GROUP
+                else
+                    return {
+                        result: answer.result
+                    }
+            } catch (erro) {
+                throw error.EXTERNAL_SERVICE_FAILURE
+            }
 
         },
 
         getGamesByRating: function (groupId, min, max) {
-            return this.infoGroup(groupId)
-                .then(group => {
-                    if (group) {
-                        const gamesByRating = group.games
-                            .filter(game => game.total_rating <= max && game.total_rating >= min)
-                            .sort((a, b) => b.total_rating - a.total_rating);
-                        return gamesByRating
-                    } else
-                        throw error.INVALID_GROUP
-                })
-
+            try {
+                return this.infoGroup(groupId)
+                    .then(group => {
+                        if (group) {
+                            const gamesByRating = group.games
+                                .filter(game => game.total_rating <= max && game.total_rating >= min)
+                                .sort((a, b) => b.total_rating - a.total_rating);
+                            return gamesByRating
+                        } else
+                            throw error.INVALID_GROUP
+                    })
+            } catch (erro) {
+                throw error.EXTERNAL_SERVICE_FAILURE
+            }
         },
 
         removeGroup: async function (groupId) {
@@ -179,15 +203,18 @@ function newdb(baseUrl) {
                     "Content-Type": "application/json"
                 }
             }
-
-            const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`, options)
-            const answer = await response.json()
-            if (answer.result === "not_found")
-                throw error.INVALID_GROUP
-            else
-                return {
-                    result: answer.result
-                }
+            try {
+                const response = await fetch(`${groupsBaseUrl}/_doc/${groupId}`, options)
+                const answer = await response.json()
+                if (answer.result === "not_found")
+                    throw error.INVALID_GROUP
+                else
+                    return {
+                        result: answer.result
+                    }
+            } catch (erro) {
+                throw error.EXTERNAL_SERVICE_FAILURE
+            }
         }
     }
     return thedb
