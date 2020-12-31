@@ -1,0 +1,24 @@
+<h1>Group list</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Options</th>
+  </tr>
+
+  {{#each list_of_groups}}
+  <tr>
+    <td>{{this.id}}</td>
+    <td>{{this.source.name}}</td>
+    <td>{{this.source.description}}</td>
+    <td width="21%">
+      <button onclick="getGames()">Games Group</button>
+      <button onclick="editGroup()">Edit Group</button>
+      <button onclick="deleteGroup()">Delete Group</button>
+    </td>
+  </tr>
+  {{/each}}
+
+</table>

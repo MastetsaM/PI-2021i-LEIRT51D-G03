@@ -1,0 +1,19 @@
+<h1>Edit Group</h1>
+
+<form action="/editGroup" method="GET">
+	<p><label for="id">Group ID: </label>
+	<input type="text" id="id" name="id" value= "{{id}}"></p>
+	<p><label for="name">Name: </label>
+	<input type="text" id="name" name="name" value= "{{name}}"></p>
+	<p><label for="desc">Description: </label>
+	<input type="text" id="desc" name="desc" value= "{{desc}}"></p>
+	<input type="hidden" id="post" name="post" value= "post"></p>
+	<p><input type="submit" value="Edit"></p>
+</form>
+{{#if edited}}
+<h2>Group Edited</h2>
+{{/if}}
+
+{{#if err}}
+<h2>Error: {{cause}}</h2>
+{{/if}}

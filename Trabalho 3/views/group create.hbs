@@ -1,0 +1,17 @@
+<h1>Create New Group</h1>
+
+<form action="/group" method="POST">
+	<p><label for="name">Name: </label>
+	<input type="text" id="name" name="name" value= "{{name}}"></p>
+	<p><label for="desc">Description: </label>
+	<input type="text" id="desc" name="desc" value= "{{desc}}"></p>
+	<p><input type="submit" value="Create"></p>
+</form>
+
+{{#if created}}
+	<h2>ID of new Group: {{id}}</h2>
+{{/if}}
+
+{{#if err}}
+	<h2>Error: {{cause}}</h2>
+{{/if}}

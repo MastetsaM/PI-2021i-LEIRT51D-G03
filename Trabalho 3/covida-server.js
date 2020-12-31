@@ -10,22 +10,27 @@ const port = process.argv[2] || default_port
 
 
 const express = require('express')
+const hbs = require('hbs')
 const app = express()
 
 const serviceCreator = require('./covida-services.js')
 const dbCreator = require('./elasticsearch.js')
-const webapiCreator = require('./covida-web-api.js')
 
 
 let igdb = require('./igdb-data.js')
-const {
-    Router
-} = require('express')
 const db = dbCreator(storage_host)
 
 const service = serviceCreator(db, igdb)
 
-const webapi = webapiCreator(service)
+const webAPICreator = require('./covida-web-api.js')
+const webAPI = webAPICreator(service)
+app.use('/api', webAPI);
 
-app.use(webapi)
+const webaUICreator = require('./covida-web-ui.js')
+const webUI = webaUICreator(service)
+app.use(webUI)
+app.set('view engine', 'hbs')
+hbs.registerPartials('./views/partial')
+
+
 app.listen(port, () => console.log(`Listening ${port}`))

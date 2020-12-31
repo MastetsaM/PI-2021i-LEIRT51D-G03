@@ -1,0 +1,37 @@
+<h1>Find Game</h1>
+
+<form action="/game" method="GET">
+	<p><label for="gameName">Game Name: </label>
+	<input type="text" id="gameName" name="gameName"></p>
+	<p><input type="submit" value="Search"></p>
+</form>
+
+{{#if err}}
+	<h2>Game - No Game Found</h2>
+	{{#if cause}}
+		<h2>Cause: {{cause}}</h2>
+	{{/if}}
+{{else}}
+	{{#if games}}
+		<h1>Game</h1>
+
+		<table>
+		<tr>
+			<th>Name</th>
+			<th>Id</th>
+			<th>Rating</th>
+			<th>Total Rating</th>
+		</tr>
+
+		{{#each games}}
+			<tr>
+				<td>{{this.name}}</td>
+				<td>{{this.id}}</td>
+				<td>{{this.rating}}</td>
+				<td>{{this.total_rating}}</td>
+			</tr>
+		{{/each}}
+
+		</table>
+	{{/if}}
+{{/if}}

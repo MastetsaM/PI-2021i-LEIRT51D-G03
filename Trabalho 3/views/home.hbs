@@ -1,0 +1,29 @@
+<div class="Popular_Games">
+	<h1>Top 50 - Most Popular Games</h1>
+
+	{{#if errPopular}}
+		<h2>Game - No Game Found</h2>
+		{{#if causePopular}}
+			<h2>Cause: {{cause}}</h2>
+		{{/if}}
+	{{else}}
+	<table>
+		<tr>
+		<th>Name</th>
+		<th>Id</th>
+		<th>Rating</th>
+		<th>Total Rating</th>
+		</tr>
+
+		{{#each games}}
+		<tr>
+		<td>{{this.name}}</td>
+		<td>{{this.id}}</td>
+		<td>{{this.rating}}</td>
+		<td>{{this.total_rating}}</td>
+		</tr>
+		{{/each}}
+
+	</table>
+	{{/if}}
+</div>

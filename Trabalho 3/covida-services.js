@@ -20,21 +20,20 @@ function service(covida_db, igdb) {
 
         newGroup: async (group) => {
             if (group)
-                return await covida_db.createGroup(group)
+                return covida_db.createGroup(group)
             else
                 throw error.INVALID_ARGUMENTS
         },
 
         editGroup: async (groupId, group) => {
             if (typeof groupId === "string" && group)
-                return await covida_db.editGroup(groupId, group)
+                return covida_db.editGroup(groupId, group)
             else
                 throw error.INVALID_ARGUMENTS
         },
 
         getAllGroups: async () => {
             return covida_db.listOfGroups()
-            return groups || []
         },
 
         getSpecGroup: async (groupId) => {

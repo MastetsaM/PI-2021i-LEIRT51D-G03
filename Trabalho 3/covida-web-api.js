@@ -95,6 +95,7 @@ function webapi(service) {
         getGroupList: (req, res) => {
             service.getAllGroups()
                 .then(db => res.json(db))
+                .catch(err => errorHandler(err, res))
         },
 
         getSpecGroup: (req, res) => {
@@ -158,6 +159,9 @@ function webapi(service) {
     }
 
     const router = express.Router()
+    router.use(express.urlencoded({
+        extended: true
+    }))
     router.use(express.json())
 
     router.get('/game/popular', theWebApi.getPopularGames)
