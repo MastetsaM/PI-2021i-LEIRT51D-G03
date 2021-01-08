@@ -29,7 +29,29 @@ app.use('/api', webAPI);
 const webaUICreator = require('./covida-web-ui.js')
 const webUI = webaUICreator(service)
 app.use(webUI)
+
+hbs.registerHelper("tableGroupButton", function (games, groups) {
+    let response = '<tr>'
+    for (let index = 0; index < games.length; index++) {
+        response += `<td>${games[index].name}</td>`
+        response += `<td>${games[index].summary}</td>`
+        response += `<td>${games[index].total_rating}</td>`
+        response += `<td width="10%"><div class="home">
+                <button class="dropbtn2">Add Game To Group</button>
+                <div class="dropbtn-content">`
+        for (let index2 = 0; index2 < groups.length; index2++) {
+            const gameName = games[index].name.replace('/', `%21`)
+            response += `
+            <form action="/${groups[index2].id}/${gameName}" method="POST">
+            <input type="submit" value="${groups[index2].source.name}"></imput>
+            </form>`
+        }
+        response += `<a href="/newGroup">New Group</a></li></div></div></td></tr>`
+    }
+    return response
+})
 app.set('view engine', 'hbs')
+app.use(express.static('navbar'))
 hbs.registerPartials('./views/partial')
 
 

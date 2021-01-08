@@ -18,21 +18,13 @@
 
 			<table>
 			<tr>
-				<th>Name</th>
-				<th>Id</th>
-				<th>Rating</th>
+				<th width="20%">Name</th>
+				<th>Description</th>
 				<th>Total Rating</th>
 			</tr>
 
-			{{#each games}}
-				<tr>
-					<td>{{this.name}}</td>
-					<td>{{this.id}}</td>
-					<td>{{this.rating}}</td>
-					<td>{{this.total_rating}}</td>
-				</tr>
-			{{/each}}
-
+		{{#tableGroupButton games groups}}{{/tableGroupButton}}
+		
 			</table>
 		{{/if}}
 	{{/if}}

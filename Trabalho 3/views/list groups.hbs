@@ -1,24 +1,30 @@
-<h1>Group list</h1>
+<h1>Group list - <a href="/group" class="buttonNewGroup">Create New Group</a></h1>
 
-<table>
+{{#if list_of_groups}}
+<table id="GroupList">
   <tr>
-    <th>Id</th>
     <th>Name</th>
     <th>Description</th>
-    <th>Options</th>
   </tr>
 
   {{#each list_of_groups}}
   <tr>
-    <td>{{this.id}}</td>
-    <td>{{this.source.name}}</td>
-    <td>{{this.source.description}}</td>
-    <td width="21%">
-      <button onclick="getGames()">Games Group</button>
-      <button onclick="editGroup()">Edit Group</button>
-      <button onclick="deleteGroup()">Delete Group</button>
+    <td width="20%">{{source.name}}</td>
+    <td>{{source.description}}</td>
+    <td width="7%">
+      <div class="home">
+          <button class="dropbtn">Options</button>
+          <div class="dropbtn-content">
+            <a href="/specGroup?id={{id}}">Select</a>
+            <a href="/group?edit=true&&id={{id}}">Edit</a>
+            <a href="/deletGroup/{{id}}">Delete</a>
+          </div>
+      </div>
     </td>
   </tr>
   {{/each}}
 
 </table>
+{{else}}
+<h3>No Groups Created </h3>
+{{/if}}

@@ -114,10 +114,12 @@ function webapi(service) {
                 .then(games => {
                     if (games.length === 0)
                         errorHandler(error.NO_INFO, res)
-                    else
-                        service.addGame(groupId, games[0])
-                        .then(newGames => res.json(newGames))
-                        .catch(err => errorHandler(err, res))
+                    else {
+                        const gameToAdd = games.find(game => game.name === game)
+                        service.addGame(groupId, gameToAdd)
+                            .then(newGames => res.json(newGames))
+                            .catch(err => errorHandler(err, res))
+                    }
                 })
                 .catch(err => errorHandler(err, res))
         },

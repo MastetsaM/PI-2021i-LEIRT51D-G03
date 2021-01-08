@@ -19,7 +19,7 @@ module.exports = {
     getPopularGames: async function (done) {
 
         options.body =
-            `fields id, name , rating, total_rating;
+            `fields summary, name, total_rating;
         sort total_rating desc;
         where total_rating != null;
         limit 50;`
@@ -38,7 +38,7 @@ module.exports = {
 
     getGameByName: async function (name) {
         //name = 'Disco Elysium'
-        options.body = `fields id, name, total_rating; sort total_rating desc; where name = "${name}" & total_rating!=null; `
+        options.body = `fields summary, name, total_rating; where total_rating!=null; search "${name}"; `
 
         const response = await fetch(URL, options)
         if (response.ok) {

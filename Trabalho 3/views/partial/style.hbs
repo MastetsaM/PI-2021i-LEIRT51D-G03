@@ -1,17 +1,151 @@
 <style> 
-	table, th, td {
-		border: 1px solid black;
-		border-collapse: collapse;
-		margin-left: auto;
-		margin-right: auto;
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+th, td {
+	padding: 5px;
+	border: 1px solid #dddddd;
+	text-align: left;
+}
+
+form, h1, h2, h3, td, p {
+	text-align: center
+}
+
+body{
+	margin: 0%;
+}
+.myBody{
+	width: 100%;
+	margin-bottom: 1%;
+}
+header nav {
+	padding-left: 2%;
+	padding-right: 2%;
+	width: 96%;
+	height: 60px;
+	background-color: rgba(75, 75, 255, 0.527);
+}
+	
+
+header nav ul li {
+	list-style: none;
+}
+
+header nav ul li a {
+	font-family: arial;
+	font-size: 16px;
+	color: rgb(46, 43, 43);
+	line-height: 63px;
+}
+
+.search_game {
+  margin-top: 1%;
+  float: right;
+}
+
+.search-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+/*Hoverable Dropdown*/
+.dropbtn, .dropbtn2 {
+	background-color: rgb(255, 115, 0);
+	color: rgb(255, 255, 255);
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	margin-top: 5%;
+}
+.dropbtn2 {
+	background-color: rgba(75, 75, 255, 0.527);
+
+}
+
+.home {
+	position: relative;
+	display: inline-block;
+}
+
+.dropbtn-content {
+	display: none;
+	position: absolute;
+	background-color: rgb(255, 208, 170);
+	min-width: 100%;
+	z-index: 12;
+}
+
+.dropbtn-content form{
+	min-width: 100%;
+	max-width: 100%;
+}
+
+.dropbtn-content a, .dropbtn-content input {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropbtn-content a:hover, .dropbtn-content input:hover {
+	background-color: rgb(160, 255, 123);
+}
+
+.home:hover .dropbtn-content {
+	display: block;
+}
+
+.home:hover .dropbtn {
+	background-color: rgb(255, 159, 80);
+}
+
+#snow{
+		font-family: Androgyne;
+		background-image: url(http://corndog.io/corndog-tile-1.png), url(http://corndog.io/corndog-tile.png), url(http://corndog.io/corndog-tile-2.png);
+		z-index:1;
+		-webkit-animation: snow 500s linear infinite;
+            -moz-animation: snow 1000s linear infinite;
+            -ms-animation: snow 1000s linear infinite;
+            animation: snow 1000s linear infinite;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
 	}
-	table {
-	 	width: 75%;
-	}
-	th, td {
-		padding: 5px;
-	}
-	form, h1, h2, h3 {
-		text-align: center
-	}
+        @keyframes snow {
+          0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+          100% {background-position: 50000px 50000px, 10000px 20000px, -10000px 15000px;}          
+        }
+        @-moz-keyframes snow {
+          0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+          100% {background-position: 50000px 50000px, 10000px 20000px, -10000px 15000px;}          
+        }
+        @-webkit-keyframes snow {
+          0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+          100% {background-position: 50000px 50000px, 10000px 20000px, -10000px 15000px;}          
+        }
+        @-ms-keyframes snow {
+          0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+          100% {background-position: 50000px 50000px, 10000px 20000px, -10000px 15000px;}          
+        } 
+
+#specificGroup 
 </style>

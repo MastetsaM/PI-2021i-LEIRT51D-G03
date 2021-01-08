@@ -1,8 +1,14 @@
-<script>
-function editGroup() {
-}
-function deleteGroup() {
-}
-function getGames() {
-}
+<script type="text/javascript" language="javascript">
+    function validateForm() {
+        var x = document.forms["createForm"]["name"].value;
+        var y = document.forms["createForm"]["desc"].value;
+        if (x == "" || x == null) {
+            alert("Name must be filled out");
+            return false;
+        }
+        if (y == "" || y == null) {
+            alert("Description must be filled out");
+            return false;
+        }
+    }
 </script>

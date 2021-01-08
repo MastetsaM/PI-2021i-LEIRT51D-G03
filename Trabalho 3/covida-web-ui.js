@@ -51,30 +51,37 @@ function webapi(service) {
 
     const theWebUI = {
 
-        homeUI: (req, res) => {
-            service.getPopularGames()
-                .then(games =>
-                    res.render('home', {
-                        games: games
-                    })
-                )
+        homeUI: async (req, res) => {
+            const answer = {}
+            if (req.query.addGame)
+                answer.addGame = "Game Added"
+            await service.getPopularGames()
+                .then(games => answer.games = games)
                 .catch(err => errorHandler(err, res))
+            await service.getAllGroups()
+                .then(groups => answer.groups = groups.list_of_groups)
+                .catch(err => errorHandler(err, res))
+
+            res.render('home', answer)
         },
 
-        getGameUI: (req, res) => {
+        getGameUI: async (req, res) => {
             const obj = {}
             if (req.query.gameName) {
                 const gameName = JSON.stringify(req.query.gameName)
                     .slice(1, -1)
                     .replace('%20', ' ')
-                service.getGameByName(gameName)
+                await service.getGameByName(gameName)
                     .then(games => {
                         obj.games = games
                         if (games.length == 0)
                             obj.err = true
-                        res.render('Get Games', obj)
                     })
+                    .catch(err => errorHandler('Get Games', err, res))
+                await service.getAllGroups()
+                    .then(groups => obj.groups = groups.list_of_groups)
                     .catch(err => errorHandler(err, res))
+                res.render('Get Games', obj)
             } else {
                 if (req.query.gameName === '') {
                     obj.err = true
@@ -87,6 +94,8 @@ function webapi(service) {
         newGroupUI: (req, res) => {
             const obj = {};
             obj.created = req.query.created
+            obj.edited = req.query.edited
+            obj.edit = req.query.edit
             obj.id = req.query.id
             res.render('group create', obj)
         },
@@ -96,7 +105,9 @@ function webapi(service) {
             if (group.name != '' && group.desc != '') {
                 // 2. invoke service
                 service.newGroup(group)
-                    .then(id => res.redirect(303, `/newGroup?created=true&id=${id}`))
+                    .then(() => setTimeout(() => {
+                        res.redirect('/listGroup')
+                    }, 800))
                     .catch(err => errorHandler('group create', err, res))
                 //promise
             } else {
@@ -112,26 +123,14 @@ function webapi(service) {
             }
         },
 
-        editGroupUI: (req, res) => {
-            if (req.query.post)
-                res.redirect(303, `/group?id=${req.query.id}&name=${req.query.name}&desc=${req.query.desc}`)
-            else {
-                const obj = {
-                    new: false
-                }
-                obj.edited = req.query.edited
-                res.render('group edit', obj)
-            }
-        },
-
         editGroup: (req, res) => {
             const group = req.body
             if (group.name != '' && group.desc != '' && group.id != '') {
-                const groupId = group.id
-
-                service.editGroup(groupId, group)
-                    .then(() => res.redirect(303, '/editGroup?edited=true'))
-                    .catch(err => errorHandler('group edit', err, res))
+                service.editGroup(group.id, group)
+                    .then(() => setTimeout(() => {
+                        res.redirect('/listGroup')
+                    }, 800))
+                    .catch(err => errorHandler('group create', err, res))
                 //return
             } else {
                 const obj = {
@@ -150,23 +149,24 @@ function webapi(service) {
 
         getGroupList: (req, res) => {
             service.getAllGroups()
-                .then(groups =>
-                    res.render('list groups', groups)
-                )
+                .then(groups => res.render('list groups', groups))
                 .catch(err => errorHandler(err, res))
         },
 
         getSpecGroup: (req, res) => {
-            const groupId = JSON.stringify(req.params.groupId).slice(1, -1)
+            const groupId = JSON.stringify(req.query.id).slice(1, -1)
 
             service.getSpecGroup(groupId)
-                .then(db => res.json(db))
+                .then(db => {
+                    db.id = groupId
+                    res.render('spec group', db)
+                })
                 .catch(err => errorHandler(err, res))
         },
 
         addGame: (req, res) => {
             const groupId = JSON.stringify(req.params.groupId).slice(1, -1)
-            const game = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ')
+            const game = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ').replace('`%21`', '/')
 
             service.getGameByName(game)
                 .then(games => {
@@ -174,7 +174,7 @@ function webapi(service) {
                         errorHandler(error.NO_INFO, res)
                     else
                         service.addGame(groupId, games[0])
-                        .then(newGames => res.json(newGames))
+                        .then(newGames => res.redirect("/?addGame=updated"))
                         .catch(err => errorHandler(err, res))
                 })
                 .catch(err => errorHandler(err, res))
@@ -182,7 +182,7 @@ function webapi(service) {
 
         removeGame: (req, res) => {
             const groupId = JSON.stringify(req.params.groupId).slice(1, -1)
-            const game = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ')
+            const game = JSON.stringify(req.params.game).slice(1, -1).replace('%20', ' ').replace('`%21`', '/')
 
             service.removeGame(groupId, game)
                 .then(db => res.json(db))
@@ -211,7 +211,9 @@ function webapi(service) {
         removeGroup: (req, res) => {
             const groupId = JSON.stringify(req.params.groupId).slice(1, -1)
             service.removeGroup(groupId)
-                .then(newdb => res.json(newdb))
+                .then(() => setTimeout(() => {
+                    res.redirect('/listGroup')
+                }, 1000))
                 .catch(err => errorHandler(err, res))
         }
     }
@@ -223,23 +225,20 @@ function webapi(service) {
 
     router.get('/', theWebUI.homeUI)
     router.get('/game', theWebUI.getGameUI)
+    router.get('/group', theWebUI.newGroupUI)
+    router.post('/newGroup', theWebUI.newGroup)
+    router.post('/editGroup', theWebUI.editGroup)
 
-    router.get('/newGroup', theWebUI.newGroupUI)
-    router.post('/group', theWebUI.newGroup)
-    router.get('/editGroup', theWebUI.editGroupUI)
-    router.put('/group', theWebUI.editGroup)
+    router.get('/listGroup', theWebUI.getGroupList)
+    router.post('/:groupId/:game', theWebUI.addGame)
+    router.get('/deletGroup/:groupId', theWebUI.removeGroup)
 
-    router.get('/list', theWebUI.getGroupList)
-    router.get('/group', theWebUI.getSpecGroup)
-
-    router.put('/group/:groupId/:game', theWebUI.addGame)
-    router.delete('/group/:groupId/:game', theWebUI.removeGame)
-
+    router.get('/specGroup', theWebUI.getSpecGroup)
+    router.post('/group/:groupId/game/:game', theWebUI.removeGame)
     router.get('/group/:groupId/min/:minRating', theWebUI.getByRatingWithMin)
     router.get('/group/:groupId/max/:maxRating', theWebUI.getByRatingWithmax)
     router.get('/group/:groupId/:minRating/:maxRating', theWebUI.getByRatingWithBoth)
 
-    router.delete('/group/:groupId', theWebUI.removeGroup)
 
 
     return router

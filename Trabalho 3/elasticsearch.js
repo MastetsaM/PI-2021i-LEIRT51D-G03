@@ -116,6 +116,8 @@ function newdb(baseUrl) {
                     return groups
                 }
             } catch (erro) {
+                if (erro == error.INVALID_GROUP)
+                    throw error.INVALID_GROUP
                 throw error.EXTERNAL_SERVICE_FAILURE
             }
         },
@@ -145,7 +147,7 @@ function newdb(baseUrl) {
                         result: answer.result
                     }
             } catch (erro) {
-                if (err === error.INVALID_GROUP)
+                if (erro === error.INVALID_GROUP)
                     throw error.INVALID_GROUP
                 throw error.EXTERNAL_SERVICE_FAILURE
             }
@@ -176,7 +178,7 @@ function newdb(baseUrl) {
                         result: answer.result
                     }
             } catch (erro) {
-                if (err === error.INVALID_GROUP)
+                if (erro === error.INVALID_GROUP)
                     throw error.INVALID_GROUP
                 throw error.EXTERNAL_SERVICE_FAILURE
             }
@@ -187,15 +189,17 @@ function newdb(baseUrl) {
             try {
                 return this.infoGroup(groupId)
                     .then(group => {
-                        if (group) {
-                            const gamesByRating = group.games
-                                .filter(game => game.total_rating <= max && game.total_rating >= min)
-                                .sort((a, b) => b.total_rating - a.total_rating);
-                            return gamesByRating
-                        } else
-                            throw error.INVALID_GROUP
+                        const gamesByRating = group.games
+                            .filter(game => game.total_rating <= max && game.total_rating >= min)
+                            .sort((a, b) => b.total_rating - a.total_rating);
+                        return gamesByRating
+                    })
+                    .catch(() => {
+                        throw error.INVALID_GROUP
                     })
             } catch (erro) {
+                if (erro === error.INVALID_GROUP)
+                    throw error.INVALID_GROUP
                 throw error.EXTERNAL_SERVICE_FAILURE
             }
         },
@@ -217,6 +221,8 @@ function newdb(baseUrl) {
                         result: answer.result
                     }
             } catch (erro) {
+                if (erro === error.INVALID_GROUP)
+                    throw error.INVALID_GROUP
                 throw error.EXTERNAL_SERVICE_FAILURE
             }
         }
