@@ -20,16 +20,17 @@ th, td {
 	text-align: left;
 }
 
-form, h1, h2, h3, td, p {
+form, h1, h2, h3, td, p, span {
 	text-align: center
 }
 
 body{
 	margin: 0%;
+	height: 100%;
+	background-color: rgb(240, 240, 240);
 }
 .myBody{
 	width: 100%;
-	margin-bottom: 1%;
 }
 header nav {
 	padding-left: 2%;
@@ -85,20 +86,30 @@ header nav ul li a {
 	display: inline-block;
 }
 
+.group-menu {
+	position: absolute;
+	display: inline-block;
+	margin-left: 90%;
+}
+.group-menu:hover .dropbtn-content {
+	display: block;
+}
+
 .dropbtn-content {
 	display: none;
 	position: absolute;
 	background-color: rgb(255, 208, 170);
 	min-width: 100%;
+	max-width: 100%;
 	z-index: 12;
 }
 
-.dropbtn-content form{
+.dropbtn-content form input{
 	min-width: 100%;
 	max-width: 100%;
 }
 
-.dropbtn-content a, .dropbtn-content input {
+.dropbtn-content a, .dropbtn-content form input {
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
@@ -147,5 +158,56 @@ header nav ul li a {
           100% {background-position: 50000px 50000px, 10000px 20000px, -10000px 15000px;}          
         } 
 
-#specificGroup 
+.signup {
+	float: left;
+	width: 49%;
+	margin-top: 7%;
+	padding-top: 3%;
+	padding-bottom: 8%;
+	border-right: 5px solid rgba(75, 75, 255, 0.349);
+}
+.signin {
+  	float: right;
+  	width: 50%;
+	padding-top: 13%;
+}
+
+
+
+
+.signup-form, .login-form {
+	height: 100%;
+	width: 400px;
+	margin: 0 auto;
+}
+
+.signup-form input, .login-form input {
+	width: 90%;
+	height: 40px;
+	padding: 0 5%;
+	margin-bottom: 4px;
+	border: none;
+	background-color: #fff;
+	font-family: arial;
+	font-size: 16px;
+	color: #111;
+	line-height: 40px;
+}
+
+.signup-form button, .login-form button {
+	display: block;
+	margin: 0 auto;
+	width: 30%;
+	height: 40px;
+	border: none;
+	background-color: #222;
+	font-family: arial;
+	font-size: 16px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.signup-form button:hover, .login-form button:hover {
+	background-color: #111;
+}
 </style>

@@ -7,23 +7,43 @@
 		<p><input type="submit" value="Search"></p>
 	</form>
 
-	{{#if err}}
+	
+	{{#if error}}
 		<h2>Game - No Game Found</h2>
-		{{#if cause}}
-			<h3>Cause: {{cause}}</h3>
-		{{/if}}
+		<h2>Cause: {{error}}</h2>
 	{{else}}
 		{{#if games}}
-			<h1>Game</h1>
-
 			<table>
 			<tr>
 				<th width="20%">Name</th>
 				<th>Description</th>
 				<th>Total Rating</th>
 			</tr>
-
-		{{#tableGroupButton games groups}}{{/tableGroupButton}}
+				{{#each games}}
+				
+					<tr>
+						<td>{{name}}</td>
+						<td>{{summary}}</td>
+						<td>{{total_rating}}</td>
+						{{#if ../user}}
+							<td width="10%">
+								<div class="home">
+									<button class="dropbtn2">Add Game To Group</button>
+									<div class="dropbtn-content">
+										{{#each ../groups}}
+											{{#replaceBar ../this.name}}
+											<form action="/{{../id}}/{{newString}}" method="POST">
+											{{/replaceBar}}
+												<input type="submit" value="{{source.name}}"></input>
+											</form>
+										{{/each}}
+										<a href="/group">New Group</a></li>
+									</div>
+								</div>
+							</td>
+						{{/if}}
+					</tr>
+				{{/each}}
 		
 			</table>
 		{{/if}}

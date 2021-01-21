@@ -11,4 +11,49 @@
             return false;
         }
     }
+    function validateFormRating() {
+        var x = document.forms["createForm"]["quantityMin"].value;
+        var y = document.forms["createForm"]["quantityMax"].value;
+        if(x>y){
+            document.forms["createForm"]["quantityMax"].value=y
+            document.forms["createForm"]["quantityMax"].value=x
+        }
+    }
+
+
+    function signupVerify() {
+        /*var a = document.forms["signup-form"]["first"].value;
+        if (a == "" || a == null) {
+            alert("Missing first name.");
+            return false;
+        }
+        var b = document.forms["signup-form"]["last"].value;
+        if (b == "" || b == null) {
+            alert("Missing last name.");
+            return false;
+        }
+        var c = document.forms["signup-form"]["email"].value;
+        if (c == "" || c == null) {
+            alert("Missing email.");
+            return false;
+        }*/
+        var d = document.forms["signup-form"]["username"].value;
+        if (d == "" || d == null) {
+            alert("Missing username.");
+            return false;
+        }
+        var e = document.forms["signup-form"]["password"].value;
+        if (e == "" || e == null) {
+            alert("Missing password.");
+            return false;
+        }
+    }
+    function loginVerify() {
+        var x = document.forms["login-form"]["username"].value;
+        var y = document.forms["login-form"]["password"].value;
+        if (x == "" || x == null || y == "" || y == null) {
+            alert("Missing username or password");
+            return false;
+        }
+    }
 </script>

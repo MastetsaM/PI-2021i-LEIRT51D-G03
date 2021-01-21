@@ -1,0 +1,27 @@
+<div class="vl"><div class="signup">
+  <h2>Signin</h2>
+  <p>Not Implemented!</p>
+  {{#if errorCreate}}
+    <h3 style="color:red">{{errorCreate}}</h3>
+  {{/if}}
+  <form class="signup-form" name="signup-form" action="/signup" method="POST" onsubmit="return signupVerify()">
+  <input type="text" name="first" placeholder="Firstname">
+  <input type="text" name="last" placeholder="Lastname">
+  <input type="text" name="email" placeholder="E-mail">
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <button type="submit" name="submit">Sign up</button>
+  </form>
+</div>
+</div>
+<div class="signin">
+    <h1>Login</h1>
+    {{#if error}}
+    <h3 style="color:red">{{error}}</h3>
+    {{/if}}
+    <form class="login-form" name="login-form" action="/login" onsubmit="return loginVerify()" method="POST">
+    <input type="text" name="username" placeholder="Username" value="">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit" name="submit">Login</button>
+    </form>
+</div>

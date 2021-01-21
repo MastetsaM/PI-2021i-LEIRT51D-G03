@@ -1,5 +1,14 @@
-<h1>{{name}}</h1>
-<p>{{description}}</p>
+<div class="group-menu">
+	<button class="dropbtn" padding-left="1%">Options</button>
+	<div class="dropbtn-content">
+	<a href="/group?edit=true&&id={{id}}{{groupInfo.id}}">Edit</a>
+	<a href="/deletGroup/{{id}}">Delete</a>
+	</div>
+</div>
+
+<h1>{{name}}{{groupInfo.name}}</h1> 
+<p>{{description}}{{groupInfo.description}}</p>
+
 
 {{#if err}}
 	<h2>Game - No Game Found</h2>
@@ -7,21 +16,25 @@
 		<h2>Cause: {{cause}}</h2>
 	{{/if}}
 {{else}}
+	{{#emptyArray games byRating}}
+		{{#if isEmptyArray}}
+			<h2>Games</h2>
+			<form action="/group/{{../id}}/getByRating" onsubmit="return validateForm()">
+				<label for="quantity">Min:</label>
+				<input type="number" id="quantityMin" name="quantityMin" step="0.01" min="0" max="100" value="0">
+				<label for="quantity">Max:</label>
+				<input type="number" id="quantityMax" name="quantityMax" step="0.01" min="0" max="100"Value="100">
+				<input type="submit" value="Total Rating">
+			</form>
+		{{/if}}
+	{{/emptyArray}}
 	{{#if games}}
-		<h2>Game</h2>
-
 		<table id="specificGroup">
 		<tr>
 			<th>Name</th>
 			<th>Total Rating</th>
-			<th >
-				<form action="/action_page.php">
-					<label for="quantity">Min:</label>
-					<input type="number" id="quantity" name="quantity" min="0" max="100">
-					<label for="quantity">Max:</label>
-					<input type="number" id="quantity" name="quantity" min="0" max="100">
-					<input type="submit" value="Total Rating">
-				</form>
+			<th>
+				
 			</th>
 		</tr>
 
@@ -36,5 +49,7 @@
 		{{/each}}
 
 		</table>
+		{{else}}
+		<h3>No Games</h3>
 	{{/if}}
 {{/if}}

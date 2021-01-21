@@ -87,6 +87,9 @@ function newdb(baseUrl) {
             try {
                 const response = await fetch(`${groupsBaseUrl}/_search`, object)
                 const answer = await response.json()
+
+                if ((answer.status || answer.error) && (answer.status === 404 || answer.error.type === 'index_not_found_exception'))
+                    return Promise.resolve()
                 const hits = answer.hits.hits
                 const groups = hits.map(hit => {
                     const info = {
@@ -157,7 +160,7 @@ function newdb(baseUrl) {
             let myGroup
             await this.infoGroup(groupId).then(group => myGroup = group)
 
-            const index = myGroup.games.findIndex(game => game.name === removeGame)
+            const index = myGroup.games.findIndex(gameA => gameA.name === removeGame)
             if (index === -1)
                 throw error.NO_INFO
             myGroup.games.splice(index, 1)
@@ -225,6 +228,9 @@ function newdb(baseUrl) {
                     throw error.INVALID_GROUP
                 throw error.EXTERNAL_SERVICE_FAILURE
             }
+        },
+        addUser: async function () {
+
         }
     }
     return thedb

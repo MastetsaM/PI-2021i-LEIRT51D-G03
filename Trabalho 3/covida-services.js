@@ -18,53 +18,85 @@ function service(covida_db, igdb) {
                 throw error.INVALID_ARGUMENTS
         },
 
-        newGroup: async (group) => {
+        newGroup: async (user, group) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             if (group)
                 return covida_db.createGroup(group)
             else
                 throw error.INVALID_ARGUMENTS
         },
 
-        editGroup: async (groupId, group) => {
+        editGroup: async (user, groupId, group) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             if (typeof groupId === "string" && group)
                 return covida_db.editGroup(groupId, group)
             else
                 throw error.INVALID_ARGUMENTS
         },
 
-        getAllGroups: async () => {
+        getAllGroups: async (user) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             return covida_db.listOfGroups()
         },
 
-        getSpecGroup: async (groupId) => {
+        getSpecGroup: async (user, groupId) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             if (typeof groupId === "string")
                 return covida_db.infoGroup(groupId)
             else
                 throw error.INVALID_ARGUMENTS
         },
 
-        addGame: async (groupId, newGame) => {
+        addGame: async (user, groupId, newGame) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             if (typeof groupId === "string" && newGame)
                 return covida_db.addGame(groupId, newGame)
             else
                 throw error.INVALID_ARGUMENTS
         },
 
-        removeGame: async (groupId, game) => {
+        removeGame: async (user, groupId, game) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             if (typeof groupId === "string" && typeof game === "string") {
                 return await covida_db.removeGame(groupId, game).then(games => games || [])
             } else
                 throw error.INVALID_ARGUMENTS
         },
 
-        removeGroup: async (groupId) => {
+        removeGroup: async (user, groupId) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             if (typeof groupId === "string") {
                 return await covida_db.removeGroup(groupId).then(games => games || [])
             } else
                 throw error.INVALID_ARGUMENTS
         },
 
-        getGamesByRating: async (groupId, minRating, maxRating) => {
+        getGamesByRating: async (user, groupId, minRating, maxRating) => {
+
+            if (!user) {
+                throw error.UNAUTHENTICATED
+            }
             let min = minRating || 0
             if (min < 0) min = 0
             if (min > 100) min = 100

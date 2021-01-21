@@ -1,13 +1,11 @@
 
 <div class="Popular_Games">
 	<h1>Top 50 - Most Popular Games</h1>
-			<h3 style="color:red">{{addGame}}</h3>
+			<h3 style="color:red">{{update}}</h3>
 
-	{{#if errPopular}}
+	{{#if error}}
 		<h2>Game - No Game Found</h2>
-		{{#if causePopular}}
-			<h2>Cause: {{cause}}</h2>
-		{{/if}}
+		<h2>Cause: {{error}}</h2>
 	{{else}}
 	<table>
 		<tr>
@@ -15,7 +13,31 @@
 		<th>Description</th>
 		<th>Total Rating</th>
 		</tr>
-		{{#tableGroupButton games groups}}{{/tableGroupButton}}
+		{{#each games}}
+		
+			<tr>
+				<td>{{name}}</td>
+				<td>{{summary}}</td>
+				<td>{{total_rating}}</td>
+				{{#if ../user}}
+					<td width="10%">
+						<div class="home">
+							<button class="dropbtn2">Add Game To Group</button>
+							<div class="dropbtn-content">
+								{{#each ../groups}}
+									{{#replaceBar ../this.name}}
+									<form action="/{{../id}}/{{newString}}" method="POST">
+									{{/replaceBar}}
+										<input type="submit" value="{{source.name}}"></input>
+									</form>
+								{{/each}}
+								<a href="/group">New Group</a></li>
+							</div>
+						</div>
+					</td>
+				{{/if}}
+			</tr>
+		{{/each}}
 		
 	</table>
 	{{/if}}

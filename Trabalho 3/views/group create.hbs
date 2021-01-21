@@ -16,3 +16,8 @@
 	<p><input type="submit" value="Create"></p>
 	{{/if}}
 </form>
+
+{{#if error}}
+	<h2>Group not created</h2>
+	<h2>Cause: {{error}}</h2>
+{{/if}}

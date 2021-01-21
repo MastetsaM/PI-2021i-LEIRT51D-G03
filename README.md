@@ -1,4 +1,5 @@
 
+
 <br />
 <p align="center">
   <a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
@@ -22,13 +23,22 @@
 				<li>
 						<a href="#wiki-trabalho-2">Trabalho 2</a>
 						<ul>
-								<li><a href="#instalação">Instalação</a></li>
-								<li><a href="#como-usar">Como Usar</a></li>
-								<li><a href="#testes-trab2">Testes-Trab2</a></li> 
+								<li><a href="#requisitos-funcionais">Requisitos funcionais</a></li>
+								<li><a href="#requisitos-não-funcionais">Requisitos não funcionais</a></li>
+								<li><a href="#instalação-2">Instalação 2</a></li>
+								<li><a href="#como-usar-api">Como Usar API</a></li>
+								<li><a href="#testes-trab-2">Testes-Trab 2</a></li> 
 						</ul>
 				</li>
 				<li>
 						<a href="#wiki-trabalho-3">Trabalho 3</a>
+						<ul>
+								<li><a href="#requisitos">Requisitos</a></li>
+								<li><a href="#instalação-3">Instalação 3</a></li>
+								<li><a href="#preparar-e-iniciar-servidor-3">Preparar e Iniciar servidor</a></li>
+								<li><a href="#como-usar-3">Como Usar 3</a></li>
+								<li><a href="#testes-trab-3">Testes-Trab 3</a></li> 
+						</ul>
 				</li>
 		</ol>
 </details>
@@ -135,7 +145,7 @@ O objetivo principal desta parte é refazer o código implementado (_refactor_) 
    							 -> elasticsearch.js
    ``` 
    
-## Instalação
+## Instalação 2
 
 1. Clonar o Repositorio
    ```sh
@@ -147,7 +157,7 @@ O objetivo principal desta parte é refazer o código implementado (_refactor_) 
    ```
 3. [Download Elasticsearch](https://www.elastic.co/downloads/elasticsearch)
 
-## Como Usar
+## Como Usar 2
 **# Pré-requisitos -** De modo a executar o programa com sucesso é necessario realizar a <a href="#instalação">instalação</a>
 1. Abrir a pasta do Trabalho 2
 2. Abrir o terminal(Prompt de Comando)
@@ -212,3 +222,154 @@ Para os testes unitarios utilizou-se a biblioteca ***chai***, sendo por isso nec
 
 
 # Wiki-Trabalho 3
+
+O objetivo desta ultima parte é implementar uma interface Web para apresentar num Browser e acrescentar suporte para uatentificação. Deste modo qualquer utilizador pode facilmente navegar entre as diversas opções e possa ter dados privados.
+
+## Requisitos funcionais
+
+1.  De modo a ter uma interface Web para apresentar num web browser foi necessario elaborado um novo modulo, que tem como principal funcionalidade o tratamento dos pedido da interfaçe do utilizador, chamado  `covida-web-ui`. Este modulo tem como principal funcionalidade apresentar uma dada pagina de acordo com o pedido do utilizador. Este modulo apresenta um afuncionanento identico ao modulo `covida-web-api`, no entato o resultado opbtido pelo utilizador é uma pagina HTML e na outra é uma resposta JSON, respetivamente. O modulo `covida-web-ui` em conjunção com o modulo Handlebars ajuda na criação da pagina HTML e CSS ajuda na apresentação da pagina, isto é, "embelezar" a pagina HTML.
+
+2. A implementação do modulo `covida-web-ui` em conjunção com o modulo Handlebars foram utilizados de modo a que o utilizador não tenha que lidar com identificadores (ID's), sendo apenas necessario inserir dados quando o utilizador procura jogos ou cria groupos.
+
+3.  Para permitir que cada utilizador posso ter os seu dados privados utilizamos o módulo `Passport`, que permiter utilizar cookies e um sistema de login, deste modo cada grupo está acossiado a um dado utilizador. O modulo `Passport` é um midleware cuja unica funcionalidade é tratar da autenticação dos utilizadores. Após a implementação do módulo `Passport`, o modulo `covida-web-ui` sofreu alterações de modo a só demonstrar os grupos que correspondam ao utilizador actual. Com isto tambem foi necessario impedir que pessoas que não sejam utilizadores da aplicação possam criar a alterar dados, como por exemplo criar grupos.
+    
+4.  Com esta parte do trabalho deve ser entregue um relatório no wiki do repositório do grupo, com a descrição da implementação do trabalho realizado na sua totalidade. Deste modo, não devem constar os estados intermédios pelo qual a implementação passou em cada uma das fases. No relatório deve constar obrigatoriamente:
+    
+    -   Descrição da estrutura da aplicação, em ambas as componentes (servidora e cliente).
+    -   Documentação da API do servidor.
+    -   Instruções de  **todos**  os passos prévios que é necessário realizar para correr aplicação e os respetivos testes.
+        -   Nesses passos devem estar incluídos as ações necessárias para introdução automática de dados de teste, por forma a que seja possível correr a aplicação com dados.
+        -   As instruções devem ter toda a informação necessária para correr a aplicação em qualquer máquina, nomeadamente na do docente. Caso essas instruções não sejam suficientes para colocar a aplicação a correr no máximo em 5 min, a nota máxima da componente prática fica limitada a 12 valores.
+        
+5. Com as alterações anteriores obtemos as seguintes dependência entre módulos:
+   ```sh
+   covida-server.js-> covida-web-api.js-> covida-services.js-> igdb-data.js
+   							 -> elasticsearch.js
+   ``` 
+   
+## Instalação 3
+
+1. Clonar o Repositorio
+   ```sh
+   git clone https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03.git
+   ```
+2. Entrar na pasta referente ao trabalho 2 e Instalar os pacotes NPM 
+   ```sh
+   npm install
+   ```
+3. [Download Elasticsearch](https://www.elastic.co/downloads/elasticsearch)
+
+## Preparar e Iniciar servidor 3
+**# Pré-requisitos -** De modo a executar o programa com sucesso é necessario realizar a <a href="#instalação-3">instalação</a>
+
+1. Abrir a pasta Elasticsearch adquirida no ponto 3 da instalação e iniciar a Base de dados 
+   ```sh
+   Run `bin/elasticsearch` (or `bin\elasticsearch.bat` on Windows)
+   or
+   Run `curl http://localhost:9200/` or `Invoke-RestMethod http://localhost:9200` with PowerShell
+   ```
+2. Abrir a pasta **PI-2021i-LEIRT51D-G03** obtidano ponto 1 da <a href="#instalação-3">instalação</a>
+3. Abrir a pasta do Trabalho 3
+4. Abrir o terminal(Prompt de Comando), na pasta  **PI-2021i-LEIRT51D-G03\Trabalho 3** .
+5. Iniciar o servidor
+   ```sh
+   node .\covida-server.js
+   ```
+6. Esta pronto a usar. Basta segir os passo em  **<a href="#como-usar-api">Como Usar API</a>** ou   **<a href="#como-usar-ui">Como Usar UI</a>** 
+
+## Como Usar API
+
+||**Options**|Method||
+|-|-------|-------|-------|
+||**User Options**|
+||Singup|POST|http://localhost:8888/api/signup|
+||Login|POST|http://localhost:8888/api/login|
+||Logout|POST|http://localhost:8888/api/logout|
+||**IGDB Options**|
+||Popular Games|GET|http://localhost:8888/api/Game/Popular|
+||Get Game|GET|http://localhost:8888/api/Game/:game|
+||**Group Options**||
+||Create New Group|POST|http://localhost:8888/api/group/newGroup|
+||Edit Group|PUT|http://localhost:8888/api/group/:groupId|
+||List Of Groups|GET|http://localhost:8888/api/group/list|
+||Get Group|GET|http://localhost:8888/api/group/:groupId|
+||Add Game|PUT|http://localhost:8888/api/group/:groupId|
+||Remove Game|DELETE|http://localhost:8888/api/group/:groupId/:game|
+||Remove Group|DELETE|http://localhost:8888/api/group/:groupId|
+||Games By Rate|
+||Minimum|GET|http://localhost:8888/api/group/:groupId/min/:minRating|
+||Maximum|GET|http://localhost:8888/api/group/:groupId/max/:maxRating|
+||Min and Max|GET|http://localhost:8888/api/group/:groupId/:minRating/:maxRating|
+
+### Body:
+As opções **Create New Group** e  **Edit Group** necessitam de um body com a seguinte estrutura
+   ```sh
+   {
+	"name": "GROUP NAME",
+	"desc": "GROUP DESCRIPTION"
+}
+   ```
+Para as opções de **Signup** e ** Login** necessitam de um body com a seguinte estrutura
+   ```sh
+   {
+	"username": "USERNAME",
+	"password": "PASSWORD"
+}
+   ```
+
+### Deve substituir os seguintes elementos:
+   ```sh
+   :game		-> Nome do jogo a pesquisar
+   :groupId	-> Id do grupo a interagir
+   :minRating	-> Valor minimo do total_rating dos jogos a apresentar 
+   :maxRating	-> Valor maximo do total_rating dos jogos a apresentar
+   ``` 
+
+## Como Usar UI
+
+Para utilizar Interface Web basta usar o **URL:** http://localhost:8888/.
+<p align="center">
+	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
+		<img src="Wiki/MainPage.png" alt="Logo" width="400" height="300">
+	</a>
+<p />
+
+A partir desta pagina web é possivel utilizar o menu que está presente no canto superior esquerdo onde, que dependendo do estado do utilizador irá apresentar os seguintes menus (esquerda sem Login e direita com Login):
+<p align="center">
+	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
+		<img src="Wiki/Menu.png" alt="Logo" width="400" height="300">
+		<img src="Wiki/MenuLogin.png" alt="Logo" width="400" height="300">
+	</a>
+<p />
+
+Ao utilizar o menu é possivel aceder às paginas onde è possivel realizar todas as ações presentes no `covida-web-api` através a Interface do utilizador.  É tambem possivel pesquisar por um dado jogo a qualquer momento, atraves do formulario no canto superior direito da pagina.
+<p align="center">
+	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
+		<img src="Wiki/Search_Game.png" alt="Logo" width="400" height="300">
+	</a>
+<p />
+
+Em cada pagina existem diversos menus. Na pagina ***Home*** e na pagina ***Search Game*** existe um menu que permite adicionar o jogo pretendido a um grupo ou criar um grupo caso ainda nao exista.
+<p align="center">
+	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
+		<img src="Wiki/AddGame.png" alt="Logo" width="400" height="300">
+	</a>
+<p />
+
+Na pagina ***List of Groups*** , que irá apresentar os grupos do utilizador, para cada grupo esta um menu com as ações aplicaveis ao grupo. Selecionar a opção **`Select`** redireciona o utilizador para uma pagina que nao aparece no menu, que apresenta o grupo escolhido. A opção  **`Edit`** permite ao utilizador mudar o nome e descrição do grupo em questão. A opção **`Delete`** ira apagar o grupo (não é revertivel). 
+<p align="center">
+	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
+		<img src="Wiki/GroupsMenu.png" alt="Logo" width="400" height="300">
+	</a>
+<p />
+
+Na pagina ***List of Groups*** , que irá apresentar os grupos do utilizador, para cada grupo esta um menu com as ações aplicaveis ao grupo. 
+<p align="center">
+	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
+		<img src="Wiki/GroupsMenu.png" alt="Logo" width="400" height="300">
+	</a>
+<p />
+
+
+## Testes-Trab 3
+Para este trabalho foram realizados 2 tipos de testes. Testes para o servidor como um todo e testes para os modulos `covida-db`,  `igdb-data`,  `covida-service`, idividualmente. Ambos os testes têm que ser realizados na pasta do segundo trabalho.

@@ -10,7 +10,7 @@ describe('igdb-data', function () {
     describe('getPopularGames', function () {
         it('(igdb_mocha) it should return 50 games', function () {
             return frisby
-                .get(`${base_url}/game/popular`)
+                .get(`${base_url}/api/game/popular`)
                 .expect('status', 200)
                 .expect('header', 'Content-Type', 'application/json; charset=utf-8')
                 .expect('jsonTypes', frisby.Joi.array().required())
@@ -32,7 +32,7 @@ describe('igdb-data', function () {
     describe('getGamesByName', function () {
         it('(igdb_mocha) it should return 1 game inside an array', function () {
             return frisby
-                .get(`${base_url}/game/Action%20Fighter`)
+                .get(`${base_url}/api/game/Action%20Fighter`)
                 .expect('status', 200)
                 .expect('header', 'Content-Type', 'application/json; charset=utf-8')
                 .expect('jsonTypes', frisby.Joi.array())

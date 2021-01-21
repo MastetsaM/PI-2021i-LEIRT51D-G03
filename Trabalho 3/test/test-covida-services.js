@@ -99,6 +99,10 @@ describe('Service', function () {
 
 
     describe('db', function () {
+        const user = {
+            username: "username",
+            password: "password"
+        }
         describe('newGroup', function () {
 
             let db = {
@@ -109,14 +113,14 @@ describe('Service', function () {
             const service = serviceCreator(db, null)
 
             it('If there is no group there should be an error', async function () {
-                await service.newGroup(undefined)
+                await service.newGroup(user, undefined)
                     .then(games => {
                         console.log("this will never happen8")
                         expect(games).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.newGroup(null)
+                await service.newGroup(user, null)
                     .then(games => {
                         console.log("this will never happen8")
                         expect(games).to.be.undefined
@@ -126,28 +130,28 @@ describe('Service', function () {
 
 
             it('If there is group it returns what it gets ', async function () {
-                await service.newGroup({})
+                await service.newGroup(user, {})
                     .then(games => expect(games).to.be.an('array').that.is.empty)
                     .catch(err => {
                         console.log("this will never happen10")
                         expect(err).to.be.undefined
                     })
 
-                await service.newGroup(1)
+                await service.newGroup(user, 1)
                     .then(games => expect(games).to.be.an('array').that.is.empty)
                     .catch(err => {
                         console.log("this will never happen11")
                         expect(err).to.be.undefined
                     })
 
-                await service.newGroup("{}")
+                await service.newGroup(user, "{}")
                     .then(games => expect(games).to.be.an('array').that.is.empty)
                     .catch(err => {
                         console.log("this will never happen12")
                         expect(err).to.be.undefined
                     })
 
-                await service.newGroup([{}, 1, "srasda"])
+                await service.newGroup(user, [{}, 1, "srasda"])
                     .then(games => expect(games).to.be.an('array').that.is.empty)
                     .catch(err => {
                         console.log("this will never happen13")
@@ -167,21 +171,21 @@ describe('Service', function () {
             const service = serviceCreator(db, null)
             it('if groupid is not a string it will return error', async function () {
                 const group = {}
-                await service.editGroup(null, group)
+                await service.editGroup(user, null, group)
                     .then(res => {
                         console.log("this will never happen14")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.editGroup(undefined, group)
+                await service.editGroup(user, undefined, group)
                     .then(res => {
                         console.log("this will never happen15")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.editGroup(1, group)
+                await service.editGroup(user, 1, group)
                     .then(res => {
                         console.log("this will never happen16")
                         expect(res).to.be.undefined
@@ -194,7 +198,7 @@ describe('Service', function () {
 
             it('if group is null or undefined it will return error', async function () {
                 const groupid = "1"
-                await service.editGroup(groupid, null)
+                await service.editGroup(user, groupid, null)
                     .then(res => {
                         console.log("this will never happen17")
                         expect(res).to.be.undefined
@@ -202,7 +206,7 @@ describe('Service', function () {
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
 
-                await service.editGroup(groupid, undefined)
+                await service.editGroup(user, groupid, undefined)
                     .then(res => {
                         console.log("this will never happen18")
                         expect(res).to.be.undefined
@@ -216,7 +220,7 @@ describe('Service', function () {
             it('if groupId is string and group isnt null or undefined will work', async function () {
                 const groupid = "1"
                 const group = {}
-                await service.editGroup(groupid, group)
+                await service.editGroup(user, groupid, group)
                     .then(err => expect(err).to.be.an("array").with.lengthOf(5))
                     .catch(err => {
                         console.log("this will never happen19")
@@ -238,7 +242,7 @@ describe('Service', function () {
                 }
                 const service = serviceCreator(db, null)
 
-                await service.getAllGroups()
+                await service.getAllGroups(user)
                     .then(groups => expect(groups).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen21")
@@ -257,7 +261,7 @@ describe('Service', function () {
             }
             const service = serviceCreator(db, null)
             it('for groupId not string nust return error', async function () {
-                await service.getSpecGroup(1, (err, games) => {
+                await service.getSpecGroup(user, 1, (err, games) => {
                         expect(err).to.be.equal(2)
                         expect(games).to.be.undefined
                     })
@@ -267,7 +271,7 @@ describe('Service', function () {
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.getSpecGroup(null, (err, games) => {
+                await service.getSpecGroup(user, null, (err, games) => {
                         expect(err).to.be.equal(2)
                         expect(games).to.be.undefined
                     })
@@ -277,7 +281,7 @@ describe('Service', function () {
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.getSpecGroup(undefined, (err, games) => {
+                await service.getSpecGroup(user, undefined, (err, games) => {
                         expect(err).to.be.equal(2)
                         expect(games).to.be.undefined
                     })
@@ -287,7 +291,7 @@ describe('Service', function () {
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.getSpecGroup([1])
+                await service.getSpecGroup(user, [1])
                     .then(games => {
                         console.log("this will never happen25")
                         expect(games).to.be.undefined
@@ -298,7 +302,7 @@ describe('Service', function () {
 
 
             it('if groupId is string return what it receives', async function () {
-                await service.getSpecGroup("1")
+                await service.getSpecGroup(user, "1")
                     .then(groups => expect(groups).to.be.an("array").that.is.empty)
                     .catch(err => {
                         console.log("this will never happen26")
@@ -318,28 +322,28 @@ describe('Service', function () {
             const service = serviceCreator(db, null)
             it('should return an error for groupId that isnt string', async function () {
                 const newGame = {}
-                await service.addGame(1, newGame)
+                await service.addGame(user, 1, newGame)
                     .then(res => {
                         console.log("this will never happen27")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.addGame(null, newGame)
+                await service.addGame(user, null, newGame)
                     .then(res => {
                         console.log("this will never happen28")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.addGame(undefined, newGame)
+                await service.addGame(user, undefined, newGame)
                     .then(res => {
                         console.log("this will never happen29")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.addGame([1], newGame)
+                await service.addGame(user, [1], newGame)
                     .then(res => {
                         console.log("this will never happen30")
                         expect(res).to.be.undefined
@@ -350,14 +354,14 @@ describe('Service', function () {
 
 
             it('should return an error if no game is passed', async function () {
-                await service.addGame(1, null)
+                await service.addGame(user, 1, null)
                     .then(res => {
                         console.log("this will never happen31")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.addGame(1, undefined)
+                await service.addGame(user, 1, undefined)
                     .then(res => {
                         console.log("this will never happen32")
                         expect(res).to.be.undefined
@@ -369,7 +373,7 @@ describe('Service', function () {
 
             it('if groupId is number and newGmae is passed return added game', async function () {
                 const newGame = {}
-                await service.addGame("1", newGame)
+                await service.addGame(user, "1", newGame)
                     .then(groups => expect(groups).to.be.an("array").that.is.empty)
                     .catch(err => {
                         console.log("this will never happen33")
@@ -390,7 +394,7 @@ describe('Service', function () {
                 }
                 const service = serviceCreator(db, null)
                 const game = "game"
-                await service.removeGame("1", game)
+                await service.removeGame(user, "1", game)
                     .then(games => expect(games).to.be.an("array").that.is.empty)
                     .catch(err => {
                         console.log("this will never happen34")
@@ -409,28 +413,28 @@ describe('Service', function () {
 
             it('should return an error if groupId isnt string', async function () {
                 const game = "game Name"
-                await service.removeGame(1, game)
+                await service.removeGame(user, 1, game)
                     .then(res => {
                         console.log("this will never happen35")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGame(null, game)
+                await service.removeGame(user, null, game)
                     .then(res => {
                         console.log("this will never happen36")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGame(undefined, game)
+                await service.removeGame(user, undefined, game)
                     .then(res => {
                         console.log("this will never happen37")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGame([1], game)
+                await service.removeGame(user, [1], game)
                     .then(res => {
                         console.log("this will never happen38")
                         expect(res).to.be.undefined
@@ -442,28 +446,28 @@ describe('Service', function () {
 
             it('should return an error if game isnt string', async function () {
                 const game = 1
-                await service.removeGame(1, game)
+                await service.removeGame(user, 1, game)
                     .then(res => {
                         console.log("this will never happen39")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGame(1, null)
+                await service.removeGame(user, 1, null)
                     .then(res => {
                         console.log("this will never happen40")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGame(1, undefined)
+                await service.removeGame(user, 1, undefined)
                     .then(res => {
                         console.log("this will never happen41")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGame(1, [game])
+                await service.removeGame(user, 1, [game])
                     .then(res => {
                         console.log("this will never happen42")
                         expect(res).to.be.undefined
@@ -475,7 +479,7 @@ describe('Service', function () {
 
             it('If groupId is number and game is string returns remaining games', async function () {
                 const game = "game"
-                await service.removeGame("1", game)
+                await service.removeGame(user, "1", game)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(2))
                     .catch(err => {
                         console.log("this will never happen42")
@@ -495,7 +499,7 @@ describe('Service', function () {
                     }
                 }
                 const service = serviceCreator(db, null)
-                await service.removeGroup("1")
+                await service.removeGroup(user, "1")
                     .then(games => expect(games).to.be.an("array").that.is.empty)
                     .catch(err => {
                         console.log("this will never happen43")
@@ -512,7 +516,7 @@ describe('Service', function () {
                     }
                 }
                 const service = serviceCreator(db, null)
-                await service.removeGroup("1")
+                await service.removeGroup(user, "1")
                     .then(games => expect(games).to.be.an("array").with.lengthOf(2))
                     .catch(err => {
                         console.log("this will never happen44")
@@ -531,28 +535,28 @@ describe('Service', function () {
                 const service = serviceCreator(db, null)
 
                 const game = 1
-                await service.removeGroup(game)
+                await service.removeGroup(user, game)
                     .then(() => {
                         console.log("this will never happen45")
                         expect(games).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGroup(null)
+                await service.removeGroup(user, null)
                     .then(() => {
                         console.log("this will never happen46")
                         expect(games).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGroup(undefined)
+                await service.removeGroup(user, undefined)
                     .then(() => {
                         console.log("this will never happen47")
                         expect(games).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.removeGroup([game])
+                await service.removeGroup(user, [game])
                     .then(games => {
                         console.log("this will never happen48")
                         expect(games).to.be.undefined
@@ -560,28 +564,6 @@ describe('Service', function () {
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
             })
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         describe('getGamesByRating', function () {
@@ -593,7 +575,7 @@ describe('Service', function () {
                     }
                 }
                 const service = serviceCreator(db, null)
-                await service.getGamesByRating("1", 1, 2)
+                await service.getGamesByRating(user, "1", 1, 2)
                     .then(games => expect(games).to.be.an("array").that.is.empty)
                     .catch(err => {
                         console.log("this will never happen49")
@@ -608,7 +590,7 @@ describe('Service', function () {
                     }
                 }
                 const service = serviceCreator(db, null)
-                await service.getGamesByRating("1", 1, 2)
+                await service.getGamesByRating(user, "1", 1, 2)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
@@ -625,21 +607,21 @@ describe('Service', function () {
                 const service = serviceCreator(db, null)
                 const groupId = "1"
                 const min = 1
-                await service.getGamesByRating(groupId, min, "2")
+                await service.getGamesByRating(user, groupId, min, "2")
                     .then(res => {
                         console.log("this will never happen51")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.getGamesByRating(groupId, min, {})
+                await service.getGamesByRating(user, groupId, min, {})
                     .then(res => {
                         console.log("this will never happen52")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.getGamesByRating(groupId, min, [])
+                await service.getGamesByRating(user, groupId, min, [])
                     .then(res => {
                         console.log("this will never happen53")
                         expect(res).to.be.undefined
@@ -656,21 +638,21 @@ describe('Service', function () {
                 const service = serviceCreator(db, null)
                 const groupId = "1"
                 const max = 80
-                await service.getGamesByRating(groupId, "2", max)
+                await service.getGamesByRating(user, groupId, "2", max)
                     .then(res => {
                         console.log("this will never happen51")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.getGamesByRating(groupId, {}, max)
+                await service.getGamesByRating(user, groupId, {}, max)
                     .then(res => {
                         console.log("this will never happen52")
                         expect(res).to.be.undefined
                     })
                     .catch(err => expect(err).to.be.an("number").equal(error.INVALID_ARGUMENTS))
 
-                await service.getGamesByRating(groupId, [], max)
+                await service.getGamesByRating(user, groupId, [], max)
                     .then(res => {
                         console.log("this will never happen53")
                         expect(res).to.be.undefined
@@ -686,56 +668,56 @@ describe('Service', function () {
                     }
                 }
                 const service = serviceCreator(db, null)
-                await service.getGamesByRating("groupId", 5, null)
+                await service.getGamesByRating(user, "groupId", 5, null)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
                         expect(err).to.be.undefined
                     })
 
-                await service.getGamesByRating("groupId", 5, undefined)
+                await service.getGamesByRating(user, "groupId", 5, undefined)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
                         expect(err).to.be.undefined
                     })
 
-                await service.getGamesByRating("groupId", null, 5)
+                await service.getGamesByRating(user, "groupId", null, 5)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
                         expect(err).to.be.undefined
                     })
 
-                await service.getGamesByRating("groupId", undefined, 5)
+                await service.getGamesByRating(user, "groupId", undefined, 5)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
                         expect(err).to.be.undefined
                     })
 
-                await service.getGamesByRating("groupId", null, null)
+                await service.getGamesByRating(user, "groupId", null, null)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
                         expect(err).to.be.undefined
                     })
 
-                await service.getGamesByRating("groupId", undefined, undefined)
+                await service.getGamesByRating(user, "groupId", undefined, undefined)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
                         expect(err).to.be.undefined
                     })
 
-                await service.getGamesByRating("groupId", undefined, null)
+                await service.getGamesByRating(user, "groupId", undefined, null)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
                         expect(err).to.be.undefined
                     })
 
-                await service.getGamesByRating("groupId", null, undefined)
+                await service.getGamesByRating(user, "groupId", null, undefined)
                     .then(games => expect(games).to.be.an("array").with.lengthOf(3))
                     .catch(err => {
                         console.log("this will never happen50")
