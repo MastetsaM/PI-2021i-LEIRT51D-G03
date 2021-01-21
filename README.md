@@ -1,5 +1,6 @@
 
 
+
 <br />
 <p align="center">
   <a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
@@ -36,12 +37,14 @@
 								<li><a href="#requisitos">Requisitos</a></li>
 								<li><a href="#instalação-3">Instalação 3</a></li>
 								<li><a href="#preparar-e-iniciar-servidor-3">Preparar e Iniciar servidor</a></li>
-								<li><a href="#como-usar-3">Como Usar 3</a></li>
+								<li><a href="#como-usar-api">Como Usar API</a></li>
+								<li><a href="#como-usar-ui">Como Usar UI</a></li>
 								<li><a href="#testes-trab-3">Testes-Trab 3</a></li> 
 						</ul>
 				</li>
 		</ol>
 </details>
+
 
 # Wiki-Trabalho 1
 
@@ -225,7 +228,7 @@ Para os testes unitarios utilizou-se a biblioteca ***chai***, sendo por isso nec
 
 O objetivo desta ultima parte é implementar uma interface Web para apresentar num Browser e acrescentar suporte para uatentificação. Deste modo qualquer utilizador pode facilmente navegar entre as diversas opções e possa ter dados privados.
 
-## Requisitos funcionais
+## Requisitos
 
 1.  De modo a ter uma interface Web para apresentar num web browser foi necessario elaborado um novo modulo, que tem como principal funcionalidade o tratamento dos pedido da interfaçe do utilizador, chamado  `covida-web-ui`. Este modulo tem como principal funcionalidade apresentar uma dada pagina de acordo com o pedido do utilizador. Este modulo apresenta um afuncionanento identico ao modulo `covida-web-api`, no entato o resultado opbtido pelo utilizador é uma pagina HTML e na outra é uma resposta JSON, respetivamente. O modulo `covida-web-ui` em conjunção com o modulo Handlebars ajuda na criação da pagina HTML e CSS ajuda na apresentação da pagina, isto é, "embelezar" a pagina HTML.
 
@@ -278,7 +281,7 @@ O objetivo desta ultima parte é implementar uma interface Web para apresentar n
 6. Esta pronto a usar. Basta segir os passo em  **<a href="#como-usar-api">Como Usar API</a>** ou   **<a href="#como-usar-ui">Como Usar UI</a>** 
 
 ## Como Usar API
-
+De nodo a utilizar a api criada é necessario realizar um dos pedidos abaixo, utilizando o metodo indicado. Todas as opções da ***API*** podem ser encontradas na ***UI***. Algumas das funcionalidade requerem um body, cuja estrutura está presente abaixo. 
 ||**Options**|Method||
 |-|-------|-------|-------|
 ||**User Options**|
@@ -337,39 +340,51 @@ Para utilizar Interface Web basta usar o **URL:** http://localhost:8888/.
 A partir desta pagina web é possivel utilizar o menu que está presente no canto superior esquerdo onde, que dependendo do estado do utilizador irá apresentar os seguintes menus (esquerda sem Login e direita com Login):
 <p align="center">
 	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
-		<img src="Wiki/Menu.png" alt="Logo" width="400" height="300">
-		<img src="Wiki/MenuLogin.png" alt="Logo" width="400" height="300">
+		<img src="Wiki/Menu.png" alt="Logo" width="150" height="300">
+		<img src="Wiki/MenuLogin.png" alt="Logo" width="150" height="300">
 	</a>
 <p />
 
 Ao utilizar o menu é possivel aceder às paginas onde è possivel realizar todas as ações presentes no `covida-web-api` através a Interface do utilizador.  É tambem possivel pesquisar por um dado jogo a qualquer momento, atraves do formulario no canto superior direito da pagina.
 <p align="center">
 	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
-		<img src="Wiki/Search_Game.png" alt="Logo" width="400" height="300">
+		<img src="Wiki/Search_Game.png" alt="Logo" width="300" height="100">
 	</a>
 <p />
 
 Em cada pagina existem diversos menus. Na pagina ***Home*** e na pagina ***Search Game*** existe um menu que permite adicionar o jogo pretendido a um grupo ou criar um grupo caso ainda nao exista.
 <p align="center">
 	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
-		<img src="Wiki/AddGame.png" alt="Logo" width="400" height="300">
+		<img src="Wiki/AddGame.png" alt="Logo" width="150" height="200">
 	</a>
 <p />
+
+No caso de o utilizador querer criar um grupo existe a pagina ***Create Group*** que tem como unica funncionalidade criar um grupo de acordo com a informação inserida pelo utilizador, mais especificamente Nome e Descrição.
 
 Na pagina ***List of Groups*** , que irá apresentar os grupos do utilizador, para cada grupo esta um menu com as ações aplicaveis ao grupo. Selecionar a opção **`Select`** redireciona o utilizador para uma pagina que nao aparece no menu, que apresenta o grupo escolhido. A opção  **`Edit`** permite ao utilizador mudar o nome e descrição do grupo em questão. A opção **`Delete`** ira apagar o grupo (não é revertivel). 
 <p align="center">
 	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
-		<img src="Wiki/GroupsMenu.png" alt="Logo" width="400" height="300">
+		<img src="Wiki/GroupsMenu.png" alt="Logo" width="150" height="200">
 	</a>
 <p />
 
-Na pagina ***List of Groups*** , que irá apresentar os grupos do utilizador, para cada grupo esta um menu com as ações aplicaveis ao grupo. 
+Na pagina ***List of Groups*** (imagem da esquerda) , que irá apresentar os grupos do utilizador, para cada grupo esta um menu com as ações aplicaveis ao grupo. Um menu similar é apresentado na pagina ***Specific Group*** (imagem da direita)
 <p align="center">
 	<a href="https://github.com/MastetsaM/PI-2021i-LEIRT51D-G03">
-		<img src="Wiki/GroupsMenu.png" alt="Logo" width="400" height="300">
+		<img src="Wiki/GroupsMenu.png" alt="Logo" width="150" height="200">
+		<img src="Wiki/SpecGroupMenu.png" alt="Logo" width="150" height="200">
 	</a>
 <p />
 
 
 ## Testes-Trab 3
-Para este trabalho foram realizados 2 tipos de testes. Testes para o servidor como um todo e testes para os modulos `covida-db`,  `igdb-data`,  `covida-service`, idividualmente. Ambos os testes têm que ser realizados na pasta do segundo trabalho.
+Para este trabalho foram realizados 2 tipos de testes. Testes para o servidor como um todo e testes para os modulos `covida-db`,  `igdb-data`, idividualmente. Ambos os testes têm que ser realizados na pasta do Terceiro trabalho. 
+
+De modo a realizar os testes, é necessario **<a href="#preparar-e-iniciar-servidor-3">Preparar e Iniciar servidor</a>**. Após este passo basta abrir  um novo terminal(Prompt de Comando), na pasta  **PI-2021i-LEIRT51D-G03\Trabalho 3** e correr um dos seguintes:
+   ```sh
+   npx jest (para os testes em  PI-2021i-LEIRT51D-G03\Trabalho 3\_tests_)
+   
+	 and / or
+   
+   npm test (para os testes em  PI-2021i-LEIRT51D-G03\Trabalho 3\tests)
+   ```
