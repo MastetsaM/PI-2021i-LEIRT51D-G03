@@ -8,7 +8,7 @@ let options = {
     body: '',
     headers: {
         'Client-ID': 'giigmv7xp163yqkp05d0nesqjhilmz',
-        'Authorization': 'Bearer ztgm03pner1gmjv0kzn07utzmfkpgy'
+        'Authorization': 'Bearer ecym1g10mzvaozya1kl0558wsmg0eu'
     }
 }
 
@@ -32,8 +32,8 @@ module.exports = {
             }
         } catch (err) {
             console.log("quotes", "error", err)
+            throw error.EXTERNAL_SERVICE_FAILURE
         }
-        throw error.EXTERNAL_SERVICE_FAILURE
     },
 
     getGameByName: async function (name) {
@@ -41,11 +41,15 @@ module.exports = {
         options.body = `fields summary, name, total_rating; where total_rating!=null; search "${name}"; `
 
         const response = await fetch(URL, options)
-        if (response.ok) {
-            const data = await response.text()
-            const result = JSON.parse(data)
-            return result
-        } else
+        try {
+            if (response.ok) {
+                const data = await response.text()
+                const result = JSON.parse(data)
+                return result
+            }
+        } catch (err) {
+            console.log("quotes", "error", err)
             throw error.EXTERNAL_SERVICE_FAILURE
+        }
     }
 }

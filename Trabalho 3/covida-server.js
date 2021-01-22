@@ -2,7 +2,7 @@
 
 let storage_host = 'http://localhost:9200'
 
-const default_port = 8889
+const default_port = 8888
 const port = process.argv[2] || default_port
 
 
