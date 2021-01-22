@@ -75,7 +75,9 @@ function webapi(service, auth) {
             if (group) {
                 // 2. invoke service
                 service.newGroup(req.user, group)
-                    .then(newGroup => res.json(newGroup))
+                    .then(newGroup => res.json({
+                        id: newGroup
+                    }))
                     .catch(err => errorHandler(err, res))
                 //promise
             } else {
