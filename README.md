@@ -235,18 +235,12 @@ O objetivo desta ultima parte é implementar uma interface Web para apresentar n
 2. A implementação do modulo `covida-web-ui` em conjunção com o modulo Handlebars foram utilizados de modo a que o utilizador não tenha que lidar com identificadores (ID's), sendo apenas necessario inserir dados quando o utilizador procura jogos ou cria groupos.
 
 3.  Para permitir que cada utilizador posso ter os seu dados privados utilizamos o módulo `Passport`, que permiter utilizar cookies e um sistema de login, deste modo cada grupo está acossiado a um dado utilizador. O modulo `Passport` é um midleware cuja unica funcionalidade é tratar da autenticação dos utilizadores. Após a implementação do módulo `Passport`, o modulo `covida-web-ui` sofreu alterações de modo a só demonstrar os grupos que correspondam ao utilizador actual. Com isto tambem foi necessario impedir que pessoas que não sejam utilizadores da aplicação possam criar a alterar dados, como por exemplo criar grupos.
-    
-4.  Com esta parte do trabalho deve ser entregue um relatório no wiki do repositório do grupo, com a descrição da implementação do trabalho realizado na sua totalidade. Deste modo, não devem constar os estados intermédios pelo qual a implementação passou em cada uma das fases. No relatório deve constar obrigatoriamente:
-    
-    -   Descrição da estrutura da aplicação, em ambas as componentes (servidora e cliente).
-    -   Documentação da API do servidor.
-    -   Instruções de  **todos**  os passos prévios que é necessário realizar para correr aplicação e os respetivos testes.
-        -   Nesses passos devem estar incluídos as ações necessárias para introdução automática de dados de teste, por forma a que seja possível correr a aplicação com dados.
-        -   As instruções devem ter toda a informação necessária para correr a aplicação em qualquer máquina, nomeadamente na do docente. Caso essas instruções não sejam suficientes para colocar a aplicação a correr no máximo em 5 min, a nota máxima da componente prática fica limitada a 12 valores.
         
-5. Com as alterações anteriores obtemos as seguintes dependência entre módulos:
+4. Com as alterações anteriores obtemos as seguintes dependência entre módulos:
    ```sh
    covida-server.js-> covida-web-api.js-> covida-services.js-> igdb-data.js
+   							 -> elasticsearch.js
+		 	-> covida-web-ui.js-> covida-services.js-> igdb-data.js
    							 -> elasticsearch.js
    ``` 
    
