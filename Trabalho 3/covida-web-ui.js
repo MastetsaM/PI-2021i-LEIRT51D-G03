@@ -280,7 +280,9 @@ function webapi(service, auth) {
                         .then(() => setTimeout(() => {
                             res.redirect('/listGroup')
                         }, 1000)))
-                    .catch(err => answer.error = errorHandler(err, res))
+                    .catch(err => res.render('list groups', {
+                        error: errorHandler(err, res)
+                    }))
             } else {
                 res.redirect('/')
             }

@@ -92,7 +92,8 @@ function webapi(service, auth) {
 
             const group = req.body
             if (group) {
-                const groupId = JSON.stringify(req.params.groupId).slice(1, -1)
+                const groupId = req.params.groupId
+                //groupId.slice(1, -1)
 
                 service.editGroup(req.user, groupId, group)
                     .then(editedGroup => res.json(editedGroup))
